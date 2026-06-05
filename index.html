@@ -949,13 +949,19 @@ section{max-width:1080px}
 section,
 .stats,
 footer{
-  opacity:0;
-  transform:translateY(34px);
+  opacity:1;
+  transform:translateY(0);
   transition:opacity 700ms ease,transform 700ms cubic-bezier(.2,.8,.2,1);
 }
-section.revealed,
-.stats.revealed,
-footer.revealed{
+section.reveal-pending,
+.stats.reveal-pending,
+footer.reveal-pending{
+  opacity:0;
+  transform:translateY(34px);
+}
+section.reveal-pending.revealed,
+.stats.reveal-pending.revealed,
+footer.reveal-pending.revealed{
   opacity:1;
   transform:translateY(0);
 }
@@ -1127,6 +1133,135 @@ body::before{
 }
 .modal-link:hover{
   background:rgba(255,255,255,.14);
+}
+.hub-preview{
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:8px;
+  background:
+    radial-gradient(circle at 82% 18%,rgba(255,255,255,.1),transparent 32%),
+    linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.03));
+  padding:1rem;
+  margin-bottom:1.5rem;
+}
+.hub-topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  padding-bottom:.85rem;
+  margin-bottom:.85rem;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.hub-title{
+  display:flex;
+  align-items:center;
+  gap:.65rem;
+  color:#fff;
+  font-family:'Syne',sans-serif;
+  font-size:15px;
+}
+.hub-title i{font-size:18px;color:rgba(255,255,255,.72)}
+.hub-pill{
+  font-size:10px;
+  letter-spacing:1.3px;
+  text-transform:uppercase;
+  color:rgba(247,248,251,.52);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:999px;
+  padding:.25rem .6rem;
+  white-space:nowrap;
+}
+.hub-layout{
+  display:grid;
+  grid-template-columns:minmax(170px,.72fr) 1.28fr;
+  gap:1rem;
+}
+.hub-sidebar,
+.hub-main{
+  border-radius:8px;
+  background:rgba(0,0,0,.18);
+  border:1px solid rgba(255,255,255,.08);
+  padding:.9rem;
+}
+.hub-nav{
+  display:flex;
+  flex-direction:column;
+  gap:.45rem;
+}
+.hub-nav-item{
+  display:flex;
+  align-items:center;
+  gap:.55rem;
+  width:100%;
+  color:rgba(247,248,251,.68);
+  font-size:12px;
+  padding:.5rem .55rem;
+  border-radius:7px;
+  border:1px solid transparent;
+  background:rgba(255,255,255,.035);
+  font-family:'DM Sans',sans-serif;
+  text-align:left;
+  cursor:pointer;
+  transition:background .2s,border-color .2s,color .2s,transform .2s;
+}
+.hub-nav-item.featured,
+.hub-nav-item.active{
+  color:#fff;
+  background:rgba(255,255,255,.09);
+  border-color:rgba(255,255,255,.14);
+}
+.hub-nav-item:hover,
+.hub-nav-item:focus-visible{
+  color:#fff;
+  background:rgba(255,255,255,.12);
+  outline:none;
+  transform:translateX(2px);
+}
+.hub-nav-item i{font-size:15px;color:rgba(255,255,255,.58)}
+.hub-main h4{
+  color:#fff;
+  font-family:'Syne',sans-serif;
+  font-size:14px;
+  margin-bottom:.65rem;
+}
+.hub-main.updating{
+  animation:hubContentIn 260ms ease both;
+}
+.hub-summary{
+  color:rgba(247,248,251,.6);
+  font-size:12px;
+  line-height:1.5;
+  margin:-.25rem 0 .75rem;
+}
+.hub-doc-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:.6rem;
+}
+.hub-doc{
+  min-height:82px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.045);
+  padding:.75rem;
+}
+.hub-doc i{font-size:17px;color:rgba(255,255,255,.65);margin-bottom:.45rem;display:block}
+.hub-doc strong{display:block;color:#fff;font-size:12px;margin-bottom:.25rem}
+.hub-doc span{display:block;color:rgba(247,248,251,.52);font-size:11px;line-height:1.35}
+.hub-footer-note{
+  margin-top:.75rem;
+  color:rgba(247,248,251,.48);
+  font-size:11px;
+  line-height:1.45;
+}
+@keyframes hubContentIn{
+  from{opacity:.35;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@media(max-width:640px){
+  .hub-layout{grid-template-columns:1fr}
+  .hub-doc-grid{grid-template-columns:1fr}
+  .hub-topbar{align-items:flex-start;flex-direction:column}
 }
 @keyframes videoArrive{
   from{opacity:0;transform:translateX(42px) scale(.98)}
@@ -1497,6 +1632,379 @@ body.ready .hero-copy{
   }
 }
 
+/* FIELD REPORTING CASE STUDY */
+.cs-cover{
+  padding:2.5rem;
+  border-radius:var(--radius);
+  background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.035));
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 24px 70px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.08);
+  backdrop-filter:blur(18px);
+  margin-bottom:2.5rem;
+  position:relative;
+  overflow:hidden;
+}
+.cs-cover::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),rgba(185,212,232,.6),transparent);
+}
+.cs-cover-label{
+  font-size:10px;color:rgba(255,255,255,.6);letter-spacing:3px;text-transform:uppercase;font-weight:600;margin-bottom:.75rem;
+}
+.cs-cover-title{
+  font-family:'Syne',sans-serif;font-size:clamp(26px,4vw,38px);font-weight:600;color:#fff;line-height:1.1;margin-bottom:.75rem;letter-spacing:-.5px;
+}
+.cs-cover-sub{
+  font-size:15px;color:rgba(247,248,251,.78);line-height:1.6;margin-bottom:1.5rem;max-width:600px;font-weight:300;
+}
+.cs-cover-links{display:flex;gap:.75rem;flex-wrap:wrap}
+
+.cs-block{margin-bottom:2rem}
+.cs-block-title{
+  font-family:'Syne',sans-serif;font-size:18px;font-weight:600;color:#fff;margin-bottom:.5rem;display:flex;align-items:center;gap:.6rem;
+}
+.cs-block-title i{font-size:18px;color:rgba(255,255,255,.55)}
+.cs-block-body{font-size:14px;color:rgba(247,248,251,.68);line-height:1.75}
+.cs-problem-visual{
+  margin-top:1.35rem;
+  min-height:270px;
+  border-radius:var(--radius);
+  border:1px solid rgba(255,255,255,.14);
+  background:
+    radial-gradient(circle at 50% 42%,rgba(255,255,255,.1),transparent 32%),
+    linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.025));
+  position:relative;
+  overflow:hidden;
+}
+.cs-problem-visual::before{
+  content:'';
+  position:absolute;
+  inset:14%;
+  border:1px dashed rgba(255,255,255,.16);
+  border-radius:999px;
+}
+.problem-node{
+  position:absolute;
+  width:clamp(124px,21%,170px);
+  min-height:82px;
+  padding:1rem;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(0,0,0,.24);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+}
+.problem-node i{font-size:22px;color:rgba(255,255,255,.68);display:block;margin-bottom:.45rem}
+.problem-node strong{display:block;color:#fff;font-family:'Syne',sans-serif;font-size:12px;margin-bottom:2px}
+.problem-node span{display:block;color:rgba(247,248,251,.52);font-size:11px;line-height:1.35}
+.problem-node.sheet{left:7%;top:12%}
+.problem-node.email{right:7%;top:15%}
+.problem-node.ppt{left:12%;bottom:12%}
+.problem-node.manual{right:12%;bottom:13%;border-color:rgba(255,255,255,.24);background:rgba(255,255,255,.08)}
+.problem-core{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:clamp(116px,20%,150px);
+  aspect-ratio:1;
+  border-radius:20px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:1rem;
+  color:#fff;
+  font-family:'Syne',sans-serif;
+  font-size:13px;
+  line-height:1.2;
+  background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.26);
+  box-shadow:0 0 34px rgba(255,255,255,.08);
+}
+.problem-line{
+  position:absolute;
+  height:1px;
+  width:27%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);
+  transform-origin:center;
+}
+.problem-line.l1{left:25%;top:35%;transform:rotate(20deg)}
+.problem-line.l2{right:24%;top:36%;transform:rotate(-22deg)}
+.problem-line.l3{left:28%;bottom:34%;transform:rotate(-24deg)}
+.problem-line.l4{right:28%;bottom:34%;transform:rotate(24deg)}
+.problem-chip{
+  position:absolute;
+  left:50%;
+  bottom:8%;
+  transform:translateX(-50%);
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  padding:.45rem .8rem;
+  border-radius:999px;
+  background:rgba(0,0,0,.26);
+  border:1px solid rgba(255,255,255,.12);
+  color:rgba(247,248,251,.62);
+  font-size:11px;
+}
+
+.cs-sources{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
+.cs-source-card{
+  padding:1.25rem;border-radius:var(--radius);
+  background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.14);
+  backdrop-filter:blur(12px);
+}
+.cs-source-card i{font-size:22px;color:rgba(255,255,255,.7);margin-bottom:.75rem;display:block}
+.cs-source-card h4{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:#fff;margin-bottom:.4rem}
+.cs-source-card p{font-size:12px;color:rgba(247,248,251,.58);line-height:1.55}
+.cs-source-format{
+  display:inline-block;margin-top:.6rem;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+  color:rgba(255,255,255,.52);border:1px solid rgba(255,255,255,.14);padding:2px 8px;border-radius:20px;
+}
+
+.cs-arch{
+  margin-top:1rem;padding:1.5rem;border-radius:var(--radius);
+  background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.1);
+  overflow-x:auto;
+}
+.cs-arch-flow{
+  display:flex;align-items:center;gap:.5rem;min-width:560px;flex-wrap:nowrap;
+}
+.cs-arch-node{
+  flex:1;padding:.75rem .6rem;border-radius:8px;text-align:center;
+  background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.16);font-size:11px;color:rgba(247,248,251,.82);line-height:1.4;
+  font-weight:500;
+}
+.cs-arch-node.node-source{border-color:rgba(185,212,232,.3);background:rgba(185,212,232,.08)}
+.cs-arch-node.node-script{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.07)}
+.cs-arch-node.node-sheet{border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.1)}
+.cs-arch-node.node-dash{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.12)}
+.cs-arch-node i{display:block;font-size:18px;color:rgba(255,255,255,.7);margin-bottom:.35rem}
+.cs-arch-arrow{color:rgba(255,255,255,.28);font-size:16px;flex-shrink:0}
+.cs-arch-group{display:flex;flex-direction:column;gap:.5rem;flex:1.4}
+
+.cs-auto-steps{display:flex;flex-direction:column;gap:.75rem;margin-top:1rem}
+.cs-auto-step{
+  display:flex;gap:1rem;align-items:flex-start;padding:1rem 1.25rem;border-radius:8px;
+  background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.1);
+}
+.cs-auto-step i{font-size:18px;color:rgba(255,255,255,.6);flex-shrink:0;margin-top:2px}
+.cs-auto-step-body h4{font-size:13px;font-weight:600;color:#fff;margin-bottom:3px;font-family:'Syne',sans-serif}
+.cs-auto-step-body p{font-size:13px;color:rgba(247,248,251,.62);line-height:1.55}
+
+.cs-truth{
+  margin-top:1rem;padding:1.5rem;border-radius:var(--radius);
+  background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.035));
+  border:1px solid rgba(255,255,255,.22);
+  display:grid;grid-template-columns:1fr 1fr;gap:1rem;
+}
+.cs-truth-item{padding:.75rem 1rem;border-radius:8px;background:rgba(0,0,0,.2)}
+.cs-truth-item i{font-size:16px;color:rgba(255,255,255,.65);margin-bottom:.4rem;display:block}
+.cs-truth-item strong{display:block;font-size:13px;color:#fff;font-family:'Syne',sans-serif;margin-bottom:3px}
+.cs-truth-item span{font-size:12px;color:rgba(247,248,251,.56);line-height:1.5}
+
+.cs-dash-features{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:1rem}
+.cs-dash-feat{
+  padding:1rem;border-radius:8px;
+  background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.12);
+}
+.cs-dash-feat i{font-size:18px;color:rgba(255,255,255,.65);margin-bottom:.5rem;display:block}
+.cs-dash-feat strong{display:block;font-size:12px;color:#fff;font-family:'Syne',sans-serif;margin-bottom:3px}
+.cs-dash-feat span{font-size:11px;color:rgba(247,248,251,.52);line-height:1.45}
+
+.cs-bva{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+.cs-bva-col{padding:1.25rem;border-radius:8px}
+.cs-bva-col.before{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)}
+.cs-bva-col.after{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.24)}
+.cs-bva-col h4{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:.75rem;color:rgba(255,255,255,.5)}
+.cs-bva-col.after h4{color:#fff}
+.cs-bva-col ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+.cs-bva-col ul li{font-size:13px;color:rgba(247,248,251,.64);line-height:1.5;padding-left:1.1rem;position:relative}
+.cs-bva-col ul li::before{content:'x';position:absolute;left:0;color:rgba(255,255,255,.28);font-size:11px}
+.cs-bva-col.after ul li{color:rgba(247,248,251,.86)}
+.cs-bva-col.after ul li::before{content:'v';color:#fff}
+
+.cs-outcomes{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1rem}
+.cs-outcome{
+  padding:1.5rem 1rem;border-radius:8px;text-align:center;
+  background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.18);
+}
+.cs-outcome-num{font-family:'Syne',sans-serif;font-size:28px;font-weight:600;color:#fff;line-height:1;margin-bottom:.35rem}
+.cs-outcome-label{font-size:11px;color:rgba(247,248,251,.6);letter-spacing:1px;text-transform:uppercase;line-height:1.4}
+
+.cs-photo-note{
+  margin-top:1.25rem;padding:1rem 1.25rem;border-radius:8px;
+  background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.18);
+  font-size:13px;color:rgba(247,248,251,.56);display:flex;align-items:center;gap:.75rem;
+}
+.cs-photo-note i{font-size:18px;color:rgba(255,255,255,.4);flex-shrink:0}
+
+.case-deck{
+  width:100%;
+  min-height:min(760px,calc(100vh - 128px));
+  border-radius:var(--radius);
+  border:1px solid rgba(255,255,255,.16);
+  background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.025));
+  box-shadow:0 24px 70px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.08);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  overflow:hidden;
+  overflow-anchor:none;
+  position:relative;
+}
+.case-stage{
+  height:clamp(430px,calc(100vh - 260px),650px);
+  padding:clamp(1rem,2.8vw,2rem);
+  display:grid;
+  overflow:hidden;
+  overflow-anchor:none;
+}
+.case-slide{
+  grid-area:1 / 1;
+  align-self:stretch;
+  overflow:auto;
+  max-height:100%;
+  padding-right:.35rem;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:translateY(16px);
+  transition:opacity 360ms ease,transform 360ms cubic-bezier(.2,.8,.2,1),visibility 0s linear 360ms;
+  overflow-anchor:none;
+}
+.case-slide.active{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:translateY(0);
+  transition-delay:0s;
+}
+.case-slide > .cs-cover,
+.case-slide > .cs-block{
+  margin:0;
+}
+.case-slide > .cs-cover{
+  min-height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.case-slide::-webkit-scrollbar{width:4px}
+.case-slide::-webkit-scrollbar-thumb{background:rgba(255,255,255,.22);border-radius:4px}
+.case-controls{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  padding:1rem clamp(1rem,2.8vw,2rem);
+  border-top:1px solid rgba(255,255,255,.1);
+  background:rgba(0,0,0,.16);
+}
+.case-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  min-width:104px;
+  justify-content:center;
+  padding:.7rem 1rem;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  font-family:'DM Sans',sans-serif;
+  font-size:12px;
+  cursor:pointer;
+}
+.case-btn:hover{background:rgba(255,255,255,.14)}
+.case-btn:disabled{opacity:.35;cursor:default}
+.case-progress{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:.55rem;
+  min-width:0;
+}
+.case-count{
+  font-size:10px;
+  color:rgba(247,248,251,.52);
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  font-weight:600;
+}
+.case-dots{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:.4rem;
+}
+.case-dot{
+  width:7px;
+  height:7px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.38);
+  background:rgba(255,255,255,.08);
+  cursor:pointer;
+}
+.case-dot.active{
+  width:24px;
+  background:#fff;
+  border-color:#fff;
+}
+@keyframes caseSlideIn{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@media(max-width:900px){
+  .cs-sources{grid-template-columns:1fr 1fr}
+  .cs-outcomes{grid-template-columns:1fr 1fr}
+  .cs-dash-features{grid-template-columns:1fr 1fr}
+  .case-deck{
+    min-height:auto;
+  }
+  .case-stage{
+    height:560px;
+  }
+  .case-slide{
+    max-height:100%;
+  }
+}
+@media(max-width:640px){
+  .cs-sources{grid-template-columns:1fr}
+  .cs-arch-flow{flex-direction:column;min-width:0}
+  .cs-arch-arrow{transform:rotate(90deg)}
+  .cs-arch-group{flex-direction:row;flex:unset;width:100%}
+  .cs-bva{grid-template-columns:1fr}
+  .cs-outcomes{grid-template-columns:1fr 1fr}
+  .cs-dash-features{grid-template-columns:1fr 1fr}
+  .cs-truth{grid-template-columns:1fr}
+  .cs-problem-visual{min-height:520px}
+  .problem-node{width:calc(50% - 1.25rem)}
+  .problem-node.sheet{left:.75rem;top:1rem}
+  .problem-node.email{right:.75rem;top:1rem}
+  .problem-node.ppt{left:.75rem;bottom:4.5rem}
+  .problem-node.manual{right:.75rem;bottom:4.5rem}
+  .problem-core{top:48%}
+  .problem-line{display:none}
+  .case-controls{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+  .case-progress{
+    grid-column:1 / -1;
+    grid-row:1;
+  }
+  .case-btn{
+    min-width:0;
+  }
+}
+
 /* SIDE BUTTERFLY GRAPHIC FINAL PASS: keep the visual on the side, soften only the edges */
 .bg-video{
   position:fixed;
@@ -1610,6 +2118,39 @@ body.ready .hero-copy{
     background:rgba(3,4,7,.8);
   }
 }
+
+/* BACKGROUND MOTION STABILITY PASS */
+.bg-video{
+  will-change:transform,opacity,filter;
+}
+.bg-video-fill{
+  animation:atmosphereDrift 24s ease-in-out infinite alternate;
+}
+.bg-video-main{
+  animation:sideVideoArrive 1100ms cubic-bezier(.2,.8,.2,1) both, sideButterflyDrift 13s ease-in-out 1100ms infinite alternate;
+}
+@keyframes atmosphereDrift{
+  from{transform:translate3d(0,-10px,0) scale(1.1);opacity:.24}
+  to{transform:translate3d(-28px,18px,0) scale(1.16);opacity:.34}
+}
+@keyframes sideVideoArrive{
+  from{opacity:0;transform:translate3d(28px,0,0) scale(.98)}
+  to{opacity:.82;transform:translate3d(0,0,0) scale(1)}
+}
+@keyframes sideButterflyDrift{
+  from{transform:translate3d(0,-8px,0) scale(1)}
+  to{transform:translate3d(-14px,14px,0) scale(1.025)}
+}
+@media (max-width:900px){
+  .bg-video-main{
+    animation:sideVideoArrive 1100ms cubic-bezier(.2,.8,.2,1) both, sideButterflyDriftMobile 13s ease-in-out 1100ms infinite alternate;
+  }
+  @keyframes sideButterflyDriftMobile{
+    from{transform:translate3d(0,-6px,0) scale(1)}
+    to{transform:translate3d(-8px,10px,0) scale(1.015)}
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1638,6 +2179,7 @@ body.ready .hero-copy{
   <div class="nav-links">
     <a onclick="scroll2('about')">About</a>
     <a onclick="scroll2('projects')">Work</a>
+    <a onclick="scroll2('field-reporting')">Case Study</a>
     <a onclick="scroll2('skills')">Skills</a>
     <a onclick="scroll2('timeline')">Timeline</a>
     <a onclick="scroll2('resume')">Resume</a>
@@ -1698,7 +2240,7 @@ body.ready .hero-copy{
     <div class="about-card">
       <i class="ti ti-code about-icon"></i>
       <h3>Both sides</h3>
-      <p>From SOP to shipped automation. I design the system and build the tools that run it - Zapier, Apps Script, Slack bots, all of it.</p>
+      <p>Most ops folks document processes. I also build the Zapier flow, the Apps Script, the Slack bot.</p>
     </div>
     <div class="about-card">
       <i class="ti ti-map-pin about-icon"></i>
@@ -1717,7 +2259,7 @@ body.ready .hero-copy{
     <div class="process-card">
       <div class="process-copy">
         <h3>Behind The Workflow</h3>
-      <p>The story behind this portfolio: how I orchestrated Claude for structural concepting, OpenAI Codex for rapid interface styling, and Gemini for precision data layouts to turn a visual direction into a fully shipped system.</p>
+      <p>The story behind this portfolio: how I used AI tools to shape the concept, refine the interface, organize the case studies, and turn a visual direction into a working portfolio system.</p>
       <div class="project-tags">
         <span class="ptag">AI Workflows</span>
         <span class="ptag">Creative Ops</span>
@@ -1726,10 +2268,10 @@ body.ready .hero-copy{
     </div>
     <div class="process-media">
       <div class="embed-shell video-ready">
-        <iframe class="process-embed" src="https://drive.google.com/file/d/1azqq6Nci7w06QoJdHsn29Ibn6zpL968m/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        <iframe class="process-embed" src="https://drive.google.com/file/d/1Hq98bnWp16xjFJwzfLhowGBrSu5DgLk3/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen></iframe>
       </div>
       <div class="modal-actions">
-        <a class="modal-link" href="https://drive.google.com/file/d/1azqq6Nci7w06QoJdHsn29Ibn6zpL968m/view?usp=sharing" target="_blank" rel="noopener"><i class="ti ti-external-link"></i>Open workflow video</a>
+        <a class="modal-link" href="https://drive.google.com/file/d/1Hq98bnWp16xjFJwzfLhowGBrSu5DgLk3/view?usp=sharing" target="_blank" rel="noopener"><i class="ti ti-external-link"></i>Open workflow video</a>
       </div>
     </div>
   </div>
@@ -1742,10 +2284,20 @@ body.ready .hero-copy{
   <div class="sec-label">Case studies</div>
   <div class="sec-title">Things I built that shipped</div>
   <div class="project-grid">
-    <div class="project-card" onclick="openModal('p1')">
+    <div class="project-card" onclick="scroll2('field-reporting')">
       <div class="project-num">01</div>
+      <h3>Field Merchandising Intelligence System</h3>
+      <p>Three disconnected data sources. One live automated dashboard. Zero manual steps.</p>
+      <div class="project-tags"><span class="ptag">Apps Script</span><span class="ptag">Google Sheets</span><span class="ptag">Vercel</span><span class="ptag">Automation</span></div>
+      <div class="project-card-actions">
+        <div class="view-btn"><i class="ti ti-arrow-down"></i> Read case study</div>
+        <a class="project-live-link" href="https://docs.google.com/spreadsheets/d/15hEIIX9oeOheBH24DUm07xFSAsm3uHstRqq3KirY1bU/edit?usp=sharing" target="_blank" rel="noopener" onclick="event.stopPropagation()"><i class="ti ti-external-link"></i> Live sheet</a>
+      </div>
+    </div>
+    <div class="project-card" onclick="openModal('p1')">
+      <div class="project-num">02</div>
       <h3>AI Data Intake Pipeline</h3>
-      <p>Turned chaotic unstructured requests into clean structured data — automatically.</p>
+      <p>Turned chaotic unstructured requests into clean structured data, automatically.</p>
       <div class="project-tags"><span class="ptag">Claude API</span><span class="ptag">Zapier</span><span class="ptag">Apps Script</span></div>
       <div class="project-card-actions">
         <div class="view-btn"><i class="ti ti-arrow-right"></i> View case study</div>
@@ -1753,9 +2305,9 @@ body.ready .hero-copy{
       </div>
     </div>
     <div class="project-card" onclick="openModal('p2')">
-      <div class="project-num">02</div>
+      <div class="project-num">03</div>
       <h3>Slack Asset Router Bot</h3>
-      <p>Slash command bot that surfaces retail assets instantly — no Drive hunting.</p>
+      <p>Slash command bot that surfaces retail assets instantly. No Drive hunting.</p>
       <div class="project-tags"><span class="ptag">Vercel</span><span class="ptag">Node.js</span><span class="ptag">Slack API</span></div>
       <div class="project-card-actions">
         <div class="view-btn"><i class="ti ti-arrow-right"></i> View case study</div>
@@ -1763,9 +2315,9 @@ body.ready .hero-copy{
       </div>
     </div>
     <div class="project-card" onclick="openModal('p4')">
-      <div class="project-num">03</div>
-      <h3>Canva Sales & Brand Materials</h3>
-      <p>Fluent execution inside brand templates — renders, one-pagers, sell sheets, and polished presentations.</p>
+      <div class="project-num">04</div>
+      <h3>Canva Sales &amp; Brand Materials</h3>
+      <p>Fluent execution inside brand templates: renders, one-pagers, sell sheets, and polished presentations.</p>
       <div class="project-tags"><span class="ptag">Canva</span><span class="ptag">Brand Templates</span><span class="ptag">Sales Materials</span></div>
       <div class="project-card-actions">
         <div class="view-btn"><i class="ti ti-arrow-right"></i> View case study</div>
@@ -1773,9 +2325,9 @@ body.ready .hero-copy{
       </div>
     </div>
     <div class="project-card" onclick="openModal('p3')">
-      <div class="project-num">04</div>
+      <div class="project-num">05</div>
       <h3>Notion Resources Hub</h3>
-      <p>Complete internal knowledge base — onboarding, SOPs, and team ops in one place.</p>
+      <p>Complete internal knowledge base: onboarding, SOPs, and team ops in one place.</p>
       <div class="project-tags"><span class="ptag">Notion</span><span class="ptag">SOPs</span><span class="ptag">Knowledge Base</span></div>
       <div class="project-card-actions">
         <div class="view-btn"><i class="ti ti-arrow-right"></i> View case study</div>
@@ -1786,6 +2338,293 @@ body.ready .hero-copy{
 </section>
 
 <div class="divider"></div>
+
+<div class="divider"></div>
+
+<!-- FIELD REPORTING CASE STUDY -->
+<section id="field-reporting">
+  <div class="sec-label">Featured Case Study</div>
+  <div class="sec-title">Field Merchandising Intelligence System</div>
+
+  <!-- COVER -->
+  <div class="cs-cover">
+    <div class="cs-cover-label">End-to-End Operational Reporting · Automated</div>
+    <div class="cs-cover-title">Three sources. Zero manual steps.<br>One live dashboard.</div>
+    <div class="cs-cover-sub">Three field teams were logging store visits in three completely different systems with no shared destination. I built the system that pulled all of it together, automated every step, and delivered a live operational view the team could actually use.</div>
+    <div class="project-tags" style="margin-bottom:1.25rem">
+      <span class="ptag">Google Apps Script</span>
+      <span class="ptag">Google Sheets</span>
+      <span class="ptag">Vercel</span>
+      <span class="ptag">HTML / CSS / JS</span>
+      <span class="ptag">Email Parsing</span>
+      <span class="ptag">PowerPoint Processing</span>
+      <span class="ptag">Automation Architecture</span>
+    </div>
+    <div class="cs-cover-links">
+      <a class="modal-link" href="https://docs.google.com/spreadsheets/d/15hEIIX9oeOheBH24DUm07xFSAsm3uHstRqq3KirY1bU/edit?usp=sharing" target="_blank" rel="noopener"><i class="ti ti-table"></i>Live consolidated sheet</a>
+      <a class="modal-link" href="https://docs.google.com/spreadsheets/d/1hZaZ5QrUeOb8jKdTWWvHwUlEoVe-BVqE7FXNoKJ4V08/edit?usp=sharing" target="_blank" rel="noopener"><i class="ti ti-brand-google-drive"></i>Field Sales Tracker</a>
+    </div>
+  </div>
+
+  <!-- 01 THE PROBLEM -->
+  <div class="cs-block">
+    <div class="cs-block-title"><i class="ti ti-alert-circle"></i>01 &nbsp; The Problem</div>
+    <div class="cs-block-body">
+      Three field teams were actively logging store visit data. None of it was connected. Visit notes lived in a Google Sheet. Task completions arrived by email. Store visit recaps and photos were buried inside PowerPoint files emailed by a third-party merchandising firm. No one had a single view across all three. Reporting required manual aggregation that, in practice, was not happening.
+    </div>
+    <div class="cs-problem-visual" aria-label="Disconnected reporting sources diagram">
+      <div class="problem-line l1"></div>
+      <div class="problem-line l2"></div>
+      <div class="problem-line l3"></div>
+      <div class="problem-line l4"></div>
+      <div class="problem-node sheet">
+        <i class="ti ti-table"></i>
+        <strong>Visit Notes</strong>
+        <span>Manual sheet entries</span>
+      </div>
+      <div class="problem-node email">
+        <i class="ti ti-mail"></i>
+        <strong>Task Updates</strong>
+        <span>Email completions</span>
+      </div>
+      <div class="problem-node ppt">
+        <i class="ti ti-presentation"></i>
+        <strong>Store Recaps</strong>
+        <span>PowerPoint files</span>
+      </div>
+      <div class="problem-node manual">
+        <i class="ti ti-puzzle"></i>
+        <strong>Manual Assembly</strong>
+        <span>No shared view</span>
+      </div>
+      <div class="problem-core">Fragmented<br>field intelligence</div>
+      <div class="problem-chip"><i class="ti ti-alert-triangle"></i> Reporting stalled at aggregation</div>
+    </div>
+  </div>
+
+  <!-- 02 THE THREE SOURCES -->
+  <div class="cs-block">
+    <div class="cs-block-title"><i class="ti ti-database"></i>02 &nbsp; The Three Sources</div>
+    <div class="cs-block-body">Each source had a completely different format. Consolidating them was not a formula problem. It required knowing how to read each format programmatically and extract what mattered.</div>
+    <div class="cs-sources">
+      <div class="cs-source-card">
+        <i class="ti ti-table"></i>
+        <h4>Internal Team</h4>
+        <p>Store visits logged manually by the field sales team in Johnnie's Field Sales Tracker. The internal source of truth, but isolated from the other two.</p>
+        <span class="cs-source-format">Google Sheet</span>
+      </div>
+      <div class="cs-source-card">
+        <i class="ti ti-mail"></i>
+        <h4>Skyu / Circle K</h4>
+        <p>Task completions sent by email to a shared inbox. No structured format. Each message had to be parsed to extract visit data.</p>
+        <span class="cs-source-format">Email Inbox</span>
+      </div>
+      <div class="cs-source-card">
+        <i class="ti ti-presentation"></i>
+        <h4>Advantage</h4>
+        <p>Third-party merchandiser recaps delivered as PowerPoint files. Visit notes and store photos embedded inside the binary file, not accessible without extraction.</p>
+        <span class="cs-source-format">PowerPoint Files</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 THE ARCHITECTURE -->
+  <div class="cs-block">
+    <div class="cs-block-title"><i class="ti ti-hierarchy-2"></i>03 &nbsp; The Architecture</div>
+    <div class="cs-block-body">Two Google Apps Script files. One runs daily and pulls from all three sources. A separate script handles photo extraction. Everything flows into one consolidated sheet, which publishes as a live CSV that the dashboard reads directly. No database. No backend server. No ongoing cost.</div>
+    <div class="cs-arch">
+      <div class="cs-arch-flow">
+        <div class="cs-arch-group">
+          <div class="cs-arch-node node-source"><i class="ti ti-table"></i>Field Sales Tracker<br><span style="font-size:10px;opacity:.6">Google Sheet</span></div>
+          <div class="cs-arch-node node-source"><i class="ti ti-mail"></i>Skyu Inbox<br><span style="font-size:10px;opacity:.6">Email</span></div>
+          <div class="cs-arch-node node-source"><i class="ti ti-presentation"></i>Advantage PPTs<br><span style="font-size:10px;opacity:.6">PowerPoint</span></div>
+        </div>
+        <div class="cs-arch-arrow"><i class="ti ti-arrow-right"></i></div>
+        <div class="cs-arch-node node-script" style="flex:1.2"><i class="ti ti-clock"></i>Apps Script<br>Daily Trigger<br><span style="font-size:10px;opacity:.6">Auto-sync + Photo Extractor</span></div>
+        <div class="cs-arch-arrow"><i class="ti ti-arrow-right"></i></div>
+        <div class="cs-arch-node node-sheet"><i class="ti ti-file-spreadsheet"></i>Consolidated Sheet<br><span style="font-size:10px;opacity:.6">Single source of truth · Published CSV</span></div>
+        <div class="cs-arch-arrow"><i class="ti ti-arrow-right"></i></div>
+        <div class="cs-arch-node node-dash"><i class="ti ti-layout-dashboard"></i>Live Dashboard<br><span style="font-size:10px;opacity:.6">Vercel · Free hosting</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 THE AUTOMATION LAYER -->
+  <div class="cs-block">
+    <div class="cs-block-title"><i class="ti ti-robot"></i>04 &nbsp; The Automation Layer</div>
+    <div class="cs-block-body">Every part of the pipeline runs without human intervention. The daily trigger fires automatically. No one needs to remember to run it, log in, or copy anything.</div>
+    <div class="cs-auto-steps">
+      <div class="cs-auto-step">
+        <i class="ti ti-clock"></i>
+        <div class="cs-auto-step-body">
+          <h4>Daily Scheduled Trigger</h4>
+          <p>Apps Script runs automatically every day. No manual trigger needed. The data stays current without anyone touching it.</p>
+        </div>
+      </div>
+      <div class="cs-auto-step">
+        <i class="ti ti-mail"></i>
+        <div class="cs-auto-step-body">
+          <h4>Email Parser for Skyu / Circle K</h4>
+          <p>The script reads the shared sales inbox, identifies completion emails by pattern, extracts the relevant fields, and writes them into the consolidated sheet.</p>
+        </div>
+      </div>
+      <div class="cs-auto-step">
+        <i class="ti ti-photo"></i>
+        <div class="cs-auto-step-body">
+          <h4>PowerPoint Photo Extractor</h4>
+          <p>A separate script opens Advantage PowerPoint files from Google Drive, reads the binary structure, extracts every embedded image, names each file by store, and links them back into the sheet automatically.</p>
+        </div>
+      </div>
+      <div class="cs-auto-step">
+        <i class="ti ti-filter"></i>
+        <div class="cs-auto-step-body">
+          <h4>Deduplication and Structuring</h4>
+          <p>All three inputs are normalized into a consistent column structure. Duplicate entries are removed. The sheet stays clean without any manual cleanup.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 SINGLE SOURCE OF TRUTH -->
+  <div class="cs-block">
+    <div class="cs-block-title"><i class="ti ti-file-spreadsheet"></i>05 &nbsp; The Single Source of Truth</div>
+    <div class="cs-block-body">One consolidated Google Sheet receives every store visit from every source. It is always current. It is published as a live CSV, which the dashboard fetches directly on load. No database. No API. The sheet is the data layer.</div>
+    <div class="cs-truth">
+      <div class="cs-truth-item">
+        <i class="ti ti-refresh"></i>
+        <strong>Always current</strong>
+        <span>Updated automatically every day. The dashboard reflects what happened without anyone needing to push a sync.</span>
+      </div>
+      <div class="cs-truth-item">
+        <i class="ti ti-world"></i>
+        <strong>Published as live CSV</strong>
+        <span>Google Sheets publishes the data as a public CSV endpoint. The dashboard reads it on every load. No backend required.</span>
+      </div>
+      <div class="cs-truth-item">
+        <i class="ti ti-link"></i>
+        <strong>Photos linked by store</strong>
+        <span>Every photo extracted from the Advantage PowerPoints is named by store and linked directly in the sheet row for that visit.</span>
+      </div>
+      <div class="cs-truth-item">
+        <i class="ti ti-lock"></i>
+        <strong>Access-controlled</strong>
+        <span>The sheet is accessible to the team. The dashboard has a password-protected admin layer for configuration settings.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 THE DASHBOARD -->
+  <div class="cs-block">
+    <div class="cs-block-title"><i class="ti ti-layout-dashboard"></i>06 &nbsp; The Dashboard</div>
+    <div class="cs-block-body">A single web page deployed on Vercel. It reads the live CSV and renders a fully filtered, searchable, interactive view of all field activity. This is the final output of the system: the proof that everything worked.</div>
+    <div class="cs-dash-features">
+      <div class="cs-dash-feat">
+        <i class="ti ti-calendar-stats"></i>
+        <strong>Date Filters</strong>
+        <span>This week, this month, this quarter, all time, or a custom date range.</span>
+      </div>
+      <div class="cs-dash-feat">
+        <i class="ti ti-alert-triangle"></i>
+        <strong>Flagged Findings</strong>
+        <span>Out of stock, no inventory, and reorder alerts auto-surfaced and clickable to the source row.</span>
+      </div>
+      <div class="cs-dash-feat">
+        <i class="ti ti-map"></i>
+        <strong>US State Map</strong>
+        <span>Interactive map of Advantage coverage. Click any state to filter visits by location.</span>
+      </div>
+      <div class="cs-dash-feat">
+        <i class="ti ti-photo"></i>
+        <strong>Store Photos</strong>
+        <span>Embedded inline with pagination. Photos are linked from Drive and display inside the dashboard per visit.</span>
+      </div>
+      <div class="cs-dash-feat">
+        <i class="ti ti-device-mobile"></i>
+        <strong>Fully Responsive</strong>
+        <span>Works on phone and desktop. Built with the team in the field in mind.</span>
+      </div>
+      <div class="cs-dash-feat">
+        <i class="ti ti-settings"></i>
+        <strong>Admin Settings</strong>
+        <span>Password-protected admin panel for configuration. Separate from the main read view.</span>
+      </div>
+    </div>
+    <div class="cs-photo-note">
+      <i class="ti ti-info-circle"></i>
+      <span>Photos currently link to the source Drive folder per visit. A future iteration will embed them directly inside the dashboard using the Google Drive API, removing the need to open a separate tab.</span>
+    </div>
+  </div>
+
+  <!-- 07 BEFORE VS AFTER -->
+  <div class="cs-block">
+    <div class="cs-block-title"><i class="ti ti-arrows-exchange"></i>07 &nbsp; Before vs. After</div>
+    <div class="cs-bva">
+      <div class="cs-bva-col before">
+        <h4>Before</h4>
+        <ul>
+          <li>3 disconnected tools with no shared view</li>
+          <li>Manual reporting that was not happening</li>
+          <li>Photos buried inside PowerPoint files</li>
+          <li>No way to surface issues across visits</li>
+          <li>Hours of aggregation per reporting cycle</li>
+        </ul>
+      </div>
+      <div class="cs-bva-col after">
+        <h4>After</h4>
+        <ul>
+          <li>1 consolidated dashboard with all three sources</li>
+          <li>Fully automated daily sync</li>
+          <li>Photos auto-extracted, named, and linked</li>
+          <li>Flagged findings surfaced and clickable</li>
+          <li>Zero manual data entry steps</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 08 KEY OUTCOMES -->
+  <div class="cs-block">
+    <div class="cs-block-title"><i class="ti ti-chart-bar"></i>08 &nbsp; Key Outcomes</div>
+    <div class="cs-outcomes">
+      <div class="cs-outcome">
+        <div class="cs-outcome-num">3 to 1</div>
+        <div class="cs-outcome-label">Data sources consolidated</div>
+      </div>
+      <div class="cs-outcome">
+        <div class="cs-outcome-num">0</div>
+        <div class="cs-outcome-label">Manual data entry steps</div>
+      </div>
+      <div class="cs-outcome">
+        <div class="cs-outcome-num">Daily</div>
+        <div class="cs-outcome-label">Automated sync</div>
+      </div>
+      <div class="cs-outcome">
+        <div class="cs-outcome-num">$0</div>
+        <div class="cs-outcome-label">Hosting cost</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 09 SKILLS AND STACK -->
+  <div class="cs-block">
+    <div class="cs-block-title"><i class="ti ti-stack-2"></i>09 &nbsp; Skills and Stack</div>
+    <div class="project-tags" style="margin-top:.75rem;gap:6px">
+      <span class="ptag">Google Apps Script</span>
+      <span class="ptag">Google Sheets</span>
+      <span class="ptag">Published CSV</span>
+      <span class="ptag">Vercel</span>
+      <span class="ptag">HTML / CSS / JavaScript</span>
+      <span class="ptag">Email Parsing</span>
+      <span class="ptag">PowerPoint File Processing</span>
+      <span class="ptag">Photo Extraction</span>
+      <span class="ptag">Multi-source Data Integration</span>
+      <span class="ptag">Automation Architecture</span>
+      <span class="ptag">Systems Thinking</span>
+      <span class="ptag">Dashboard Design</span>
+    </div>
+  </div>
+
+</section>
 
 <!-- SKILLS -->
 <section id="skills">
@@ -1831,12 +2670,14 @@ body.ready .hero-copy{
     <div class="skill-chip"><i class="ti ti-brush"></i>Team Hubs</div>
     <div class="skill-chip"><i class="ti ti-brush"></i>SOPs & Docs</div>
   </div>
-<div id="tab-ai" class="skills-panel">
-  <div class="skill-chip"><i class="ti ti-brain"></i>Claude (Anthropic)</div>
-  <div class="skill-chip"><i class="ti ti-brand-openai"></i>OpenAI Codex</div>
-  <div class="skill-chip"><i class="ti ti-sparkles"></i>Gemini</div>
-  <div class="skill-chip"><i class="ti ti-git-fork"></i>Multi-AI Orchestration</div>
-</div>
+  <div id="tab-ai" class="skills-panel">
+    <div class="skill-chip"><i class="ti ti-robot"></i>Claude / Prompt Eng.</div>
+    <div class="skill-chip"><i class="ti ti-robot"></i>AI Workflow Design</div>
+    <div class="skill-chip"><i class="ti ti-robot"></i>Process Improvement</div>
+    <div class="skill-chip"><i class="ti ti-robot"></i>SOP Development</div>
+    <div class="skill-chip"><i class="ti ti-robot"></i>Systems Thinking</div>
+  </div>
+</section>
 
 <div class="divider"></div>
 
@@ -1850,14 +2691,14 @@ body.ready .hero-copy{
       <div class="tl-date">May 2024 – May 2026</div>
       <div class="tl-role">Sr. Customer Success & Operations Representative</div>
       <div class="tl-company">Cleango</div>
-      <div class="tl-desc">SOPs, onboarding systems, client & vendor ops.</div>
+      <div class="tl-desc">SOPs, onboarding systems, retailer portals, client & vendor ops.</div>
     </div>
     <div class="tl-item">
       <div class="tl-dot"></div>
       <div class="tl-date">Jan 2022 – May 2024</div>
       <div class="tl-role">Sales Operations & Systems Support</div>
       <div class="tl-company">Multiple Companies (Contract)</div>
-      <div class="tl-desc">Built internal tools, KPI dashboards, retailer portals, and sales enablement across brands</div>
+      <div class="tl-desc">Built internal tools, KPI dashboards, and sales enablement across brands.</div>
     </div>
     <div class="tl-item">
       <div class="tl-dot"></div>
@@ -1904,8 +2745,8 @@ body.ready .hero-copy{
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-box">
-    <h2>Let's build something efficient</h2>
-    <p>Open to remote roles in Revenue Ops, Growth Ops, Systems & Automation, Operations and Administration. I find the bottleneck, build the fix, and ship it fast.</p>
+    <h2>Let's build something</h2>
+    <p>Open to remote ops roles. Fast learner, fast shipper.</p>
     <div class="contact-links">
       <a class="clink" href="mailto:goldenbernal@gmail.com"><i class="ti ti-mail"></i>goldenbernal@gmail.com</a>
       <a class="clink" href="tel:+639169682036"><i class="ti ti-phone"></i>+63 (916) 968-2036</a>
@@ -1957,8 +2798,9 @@ const projects = {
   p3:{
     title:"Notion Resources Hub",
     meta:"Notion · SOPs · Knowledge Management",
-    desc:"Designed and built a complete internal resource hub in Notion for onboarding, training, SOP documentation, and team-wide knowledge management. Also built a commercial-facing resource hub for client use. Structured for clarity and easy navigation across distributed teams.",
-    tags:["Notion","SOPs","Onboarding","Knowledge Base","Documentation"],
+    desc:"Designed and rebuilt a structured operations resource hub in Notion for sales ops, commercial retail workflows, team documentation, SOPs, trackers, account resources, launch support, and recurring project workflows. This preview is anonymized to show the system design without exposing private brand or client materials.",
+    tags:["Notion","SOPs","Retail Ops","Resource Hub","Documentation"],
+    previewType:"hub",
     embedUrl:"#",
     assetUrl:"#"
   },
@@ -1980,15 +2822,137 @@ const projects = {
   }
 };
 
+const hubSections = {
+  trackers:{
+    title:"Commercial trackers",
+    summary:"A structured command center for account notes, launch status, follow-ups, and recurring field updates.",
+    docs:[
+      {icon:"ti-file-spreadsheet",title:"Account tracker",body:"Shared pipeline assumptions, launch status, and account notes."},
+      {icon:"ti-chart-dots-3",title:"Field update log",body:"Store recaps, blockers, and next actions grouped by owner."},
+      {icon:"ti-map-pin",title:"Retail coverage view",body:"Region, door, and priority account tracking without private store details."},
+      {icon:"ti-progress-check",title:"Action status board",body:"Open tasks, review needs, and completed updates in one view."}
+    ]
+  },
+  sops:{
+    title:"SOP library",
+    summary:"Reusable operating guides that make repeated sales ops requests easier to route, complete, and hand off.",
+    docs:[
+      {icon:"ti-checkup-list",title:"Sample request SOP",body:"Clear steps for request intake, routing, ownership, and follow-up."},
+      {icon:"ti-clipboard-text",title:"Brief intake guide",body:"Required details, handoff notes, and approval checkpoints."},
+      {icon:"ti-route",title:"Asset routing workflow",body:"How requests move from submission to final team delivery."},
+      {icon:"ti-message-2-check",title:"Status update template",body:"Consistent language for weekly updates and stakeholder notes."}
+    ]
+  },
+  launch:{
+    title:"Retail launch support",
+    summary:"Templates and references for coordinating retail launches, product details, and channel-ready materials.",
+    docs:[
+      {icon:"ti-rocket",title:"Launch brief template",body:"Reusable structure for milestones, audiences, and channel updates."},
+      {icon:"ti-package",title:"Product reference",body:"SKU details, packaging levels, UPC/GTIN logic, and submission notes."},
+      {icon:"ti-calendar-stats",title:"Launch readiness view",body:"Timeline, dependencies, missing assets, and review status."},
+      {icon:"ti-speakerphone",title:"Field communication kit",body:"Clean talking points and updates prepared for retail teams."}
+    ]
+  },
+  planning:{
+    title:"Trade planning",
+    summary:"A planning layer for campaign calendars, event support, promo windows, and repeatable retail operations.",
+    docs:[
+      {icon:"ti-calendar-event",title:"Trade calendar",body:"Promo windows, event dates, launch beats, and follow-up periods."},
+      {icon:"ti-layout-kanban",title:"Planning board",body:"Prioritized workstreams with owners, blockers, and review stages."},
+      {icon:"ti-file-analytics",title:"Recap template",body:"A clean structure for results, learnings, and next-step reporting."},
+      {icon:"ti-users-group",title:"Stakeholder view",body:"Who needs what, by when, and where the latest source lives."}
+    ]
+  },
+  assets:{
+    title:"Asset resources",
+    summary:"A resource layer for locating approved materials, version notes, sales files, and presentation support.",
+    docs:[
+      {icon:"ti-folders",title:"Approved asset index",body:"Organized references for final files, previews, and usage notes."},
+      {icon:"ti-presentation",title:"Presentation support",body:"Deck sections, sales slides, and ready-to-share visual assets."},
+      {icon:"ti-photo-edit",title:"Creative request tracker",body:"Requested renders, copy edits, and collateral updates by status."},
+      {icon:"ti-link",title:"Live resource links",body:"Centralized source links with private names and materials removed."}
+    ]
+  }
+};
+
+function renderHubDocs(docs) {
+  return docs.map(doc => `
+    <div class="hub-doc">
+      <i class="ti ${doc.icon}"></i>
+      <strong>${doc.title}</strong>
+      <span>${doc.body}</span>
+    </div>
+  `).join('');
+}
+
+function initHubPreview() {
+  const hub = document.querySelector('.hub-preview');
+  if (!hub) return;
+
+  const buttons = Array.from(hub.querySelectorAll('[data-hub-section]'));
+  const main = hub.querySelector('[data-hub-main]');
+  const heading = hub.querySelector('[data-hub-heading]');
+  const summary = hub.querySelector('[data-hub-summary]');
+  const grid = hub.querySelector('[data-hub-doc-grid]');
+
+  function setHubSection(key) {
+    const section = hubSections[key] || hubSections.trackers;
+    buttons.forEach(button => {
+      const isActive = button.dataset.hubSection === key;
+      button.classList.toggle('active', isActive);
+      button.setAttribute('aria-pressed', String(isActive));
+    });
+    heading.textContent = section.title;
+    summary.textContent = section.summary;
+    grid.innerHTML = renderHubDocs(section.docs);
+    if (main) {
+      main.classList.remove('updating');
+      void main.offsetWidth;
+      main.classList.add('updating');
+    }
+  }
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => setHubSection(button.dataset.hubSection));
+  });
+
+  setHubSection('trackers');
+}
+
 function openModal(id) {
   const p = projects[id];
   const hasVideo = p.videoUrl && p.videoUrl !== "#";
   const hasEmbed = p.embedUrl && p.embedUrl !== "#";
   const hasAsset = p.assetUrl && p.assetUrl !== "#";
+  const hubPreview = `
+    <div class="hub-preview">
+      <div class="hub-topbar">
+        <div class="hub-title"><i class="ti ti-layout-sidebar"></i>Retail Operations Resource Hub</div>
+        <div class="hub-pill">Anonymized sample</div>
+      </div>
+      <div class="hub-layout">
+        <div class="hub-sidebar">
+          <div class="hub-nav">
+            <button class="hub-nav-item active" type="button" data-hub-section="trackers" aria-pressed="true"><i class="ti ti-chart-bar"></i>Commercial trackers</button>
+            <button class="hub-nav-item" type="button" data-hub-section="sops" aria-pressed="false"><i class="ti ti-book"></i>SOP library</button>
+            <button class="hub-nav-item" type="button" data-hub-section="launch" aria-pressed="false"><i class="ti ti-rocket"></i>Retail launch support</button>
+            <button class="hub-nav-item" type="button" data-hub-section="planning" aria-pressed="false"><i class="ti ti-calendar-event"></i>Trade planning</button>
+            <button class="hub-nav-item" type="button" data-hub-section="assets" aria-pressed="false"><i class="ti ti-folders"></i>Asset resources</button>
+          </div>
+        </div>
+        <div class="hub-main" data-hub-main aria-live="polite">
+          <h4 data-hub-heading>Commercial trackers</h4>
+          <p class="hub-summary" data-hub-summary>A structured command center for account notes, launch status, follow-ups, and recurring field updates.</p>
+          <div class="hub-doc-grid" data-hub-doc-grid>${renderHubDocs(hubSections.trackers.docs)}</div>
+          <div class="hub-footer-note">Built from private hub examples, with names, brands, links, and sensitive materials removed.</div>
+        </div>
+      </div>
+    </div>
+  `;
   document.getElementById('modal-content').innerHTML = `
     <h2>${p.title}</h2>
     <div class="modal-meta">${p.meta}</div>
-    ${hasVideo ? `
+    ${p.previewType === "hub" ? hubPreview : hasVideo ? `
       <div class="asset-frame video-frame">
         <video autoplay muted loop playsinline controls preload="auto" data-preview-video oncanplay="this.play().catch(() => {})">
           <source src="${p.videoUrl}" type="video/mp4">
@@ -2021,6 +2985,7 @@ function openModal(id) {
     previewVideo.play().catch(() => {});
     setTimeout(() => previewVideo.play().catch(() => {}), 300);
   }
+  if (p.previewType === "hub") initHubPreview();
 }
 function closeModal(e, force) {
   if (force || e.target === document.getElementById('modal')) {
@@ -2028,6 +2993,7 @@ function closeModal(e, force) {
     document.getElementById('modal').classList.remove('open');
   }
 }
+
 function scroll2(id) {
   document.getElementById(id).scrollIntoView({behavior:'smooth'});
 }
@@ -2038,8 +3004,98 @@ function switchTab(name, el) {
   el.classList.add('active');
 }
 
+function initCaseStudyDeck() {
+  const section = document.getElementById('field-reporting');
+  if (!section || section.querySelector('.case-deck')) return;
+  const pages = Array.from(section.querySelectorAll(':scope > .cs-cover, :scope > .cs-block'));
+  if (!pages.length) return;
+
+  const deck = document.createElement('div');
+  deck.className = 'case-deck';
+  const stage = document.createElement('div');
+  stage.className = 'case-stage';
+
+  const titles = pages.map((page, index) => {
+    if (page.classList.contains('cs-cover')) return 'Overview';
+    return page.querySelector('.cs-block-title')?.textContent.replace(/\s+/g, ' ').trim() || `Page ${index + 1}`;
+  });
+
+  pages.forEach((page, index) => {
+    const slide = document.createElement('div');
+    slide.className = 'case-slide';
+    slide.dataset.caseSlide = index;
+    slide.appendChild(page);
+    stage.appendChild(slide);
+  });
+
+  const controls = document.createElement('div');
+  controls.className = 'case-controls';
+  controls.innerHTML = `
+    <button class="case-btn" type="button" data-case-prev><i class="ti ti-chevron-left"></i>Previous</button>
+    <div class="case-progress">
+      <div class="case-count" data-case-count></div>
+      <div class="case-dots" data-case-dots></div>
+    </div>
+    <button class="case-btn" type="button" data-case-next>Next<i class="ti ti-chevron-right"></i></button>
+  `;
+
+  deck.appendChild(stage);
+  deck.appendChild(controls);
+  section.appendChild(deck);
+
+  const slides = Array.from(deck.querySelectorAll('.case-slide'));
+  const dotsWrap = deck.querySelector('[data-case-dots]');
+  const count = deck.querySelector('[data-case-count]');
+  const prev = deck.querySelector('[data-case-prev]');
+  const next = deck.querySelector('[data-case-next]');
+  let active = 0;
+
+  dotsWrap.innerHTML = slides.map((_, index) => (
+    `<button class="case-dot" type="button" aria-label="Open case study page ${index + 1}: ${titles[index]}" data-case-dot="${index}"></button>`
+  )).join('');
+
+  const dots = Array.from(dotsWrap.querySelectorAll('.case-dot'));
+  function setCaseSlide(index) {
+    const pageY = window.scrollY;
+    active = Math.max(0, Math.min(index, slides.length - 1));
+    slides.forEach((slide, slideIndex) => {
+      slide.classList.toggle('active', slideIndex === active);
+      if (slideIndex === active) slide.scrollTop = 0;
+    });
+    dots.forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === active));
+    count.textContent = `${String(active + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')} · ${titles[active]}`;
+    prev.disabled = active === 0;
+    next.disabled = active === slides.length - 1;
+    requestAnimationFrame(() => window.scrollTo({ top:pageY, behavior:'auto' }));
+    window.setTimeout(() => window.scrollTo({ top:pageY, behavior:'auto' }), 80);
+  }
+
+  prev.addEventListener('click', () => setCaseSlide(active - 1));
+  next.addEventListener('click', () => setCaseSlide(active + 1));
+  dots.forEach(dot => dot.addEventListener('click', () => setCaseSlide(Number(dot.dataset.caseDot))));
+  deck.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') setCaseSlide(active - 1);
+    if (event.key === 'ArrowRight') setCaseSlide(active + 1);
+  });
+
+  let startX = 0;
+  deck.addEventListener('touchstart', (event) => {
+    startX = event.touches[0]?.clientX || 0;
+  }, { passive:true });
+  deck.addEventListener('touchend', (event) => {
+    const endX = event.changedTouches[0]?.clientX || startX;
+    const delta = startX - endX;
+    if (Math.abs(delta) > 52) setCaseSlide(active + (delta > 0 ? 1 : -1));
+    startX = 0;
+  }, { passive:true });
+
+  setCaseSlide(0);
+}
+
+
 window.addEventListener('load', () => {
   document.body.classList.add('ready');
+  initCaseStudyDeck();
 
   document.querySelectorAll('.bg-video').forEach(video => {
     video.muted = true;
@@ -2060,7 +3116,14 @@ window.addEventListener('load', () => {
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
 
-  revealTargets.forEach(el => reveal.observe(el));
+  revealTargets.forEach(el => {
+    el.classList.add('reveal-pending');
+    reveal.observe(el);
+  });
+
+  window.setTimeout(() => {
+    revealTargets.forEach(el => el.classList.add('revealed'));
+  }, 1600);
 
 });
 
