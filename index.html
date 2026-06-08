@@ -2151,6 +2151,126 @@ body.ready .hero-copy{
   }
 }
 
+/* READABILITY PASS */
+.hero-copy,
+.stats,
+.process-copy{
+  position:relative;
+  border:1px solid rgba(255,255,255,.16);
+  background:linear-gradient(135deg,rgba(7,10,15,.78),rgba(7,10,15,.42));
+  box-shadow:0 20px 60px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.07);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+}
+.hero-copy{
+  border-radius:8px;
+}
+.stats{
+  gap:.75rem;
+  padding:.75rem;
+  border-radius:8px;
+}
+.stat{
+  flex:1 1 190px;
+  min-width:180px;
+  padding:1.45rem 1.25rem;
+  border-radius:7px;
+  background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.035));
+  border:1px solid rgba(255,255,255,.1);
+}
+.stat+.stat::before{
+  display:none;
+}
+.tl{
+  position:relative;
+  padding:1.65rem 1.65rem 1.65rem 3rem;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:8px;
+  background:linear-gradient(135deg,rgba(7,10,15,.72),rgba(7,10,15,.36));
+  box-shadow:0 20px 60px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.07);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+}
+.tl::before{
+  display:block;
+  content:'';
+  position:absolute;
+  left:1.45rem;
+  top:2rem;
+  bottom:2rem;
+  width:1px;
+  background:linear-gradient(180deg,rgba(255,255,255,.74),rgba(185,212,232,.46),transparent);
+}
+.tl-item{
+  position:relative;
+  margin-bottom:2.15rem;
+  padding:0 0 0 .2rem;
+  min-height:0;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+.tl-item:last-child{
+  margin-bottom:0;
+}
+.tl-dot{
+  position:absolute;
+  left:-1.82rem;
+  top:.28rem;
+  width:11px;
+  height:11px;
+  border-radius:50%;
+  background:#f7f8fb;
+  box-shadow:0 0 0 6px rgba(255,255,255,.1),0 0 24px rgba(255,255,255,.22);
+}
+.process-copy{
+  border-radius:8px;
+}
+.hero-sub,
+.stat-desc,
+.about-card p,
+.project-card p,
+.tl-desc,
+.contact-box p,
+.resume-preview-sub,
+.modal-body,
+.cs-block-body,
+.cs-cover-sub,
+.cs-source-card p,
+.cs-auto-step-body p,
+.cs-truth-item span,
+.cs-dash-feat span{
+  color:rgba(247,248,251,.78);
+}
+.tl-company,
+.stat-label,
+.sec-label,
+.project-num,
+.modal-meta{
+  color:rgba(247,248,251,.72);
+}
+.stat-desc,
+.tl-desc{
+  text-shadow:0 1px 18px rgba(0,0,0,.45);
+}
+@media(max-width:760px){
+  .stats{
+    display:grid;
+    grid-template-columns:1fr;
+  }
+  .tl{
+    padding:1.35rem 1.1rem 1.35rem 2.55rem;
+  }
+  .tl::before{
+    left:1.2rem;
+  }
+  .tl-dot{
+    left:-1.55rem;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2181,7 +2301,7 @@ body.ready .hero-copy{
     <a onclick="scroll2('projects')">Work</a>
     <a onclick="scroll2('field-reporting')">Case Study</a>
     <a onclick="scroll2('skills')">Skills</a>
-    <a onclick="scroll2('timeline')">Timeline</a>
+    <a onclick="scroll2('timeline')">Overview</a>
     <a onclick="scroll2('resume')">Resume</a>
     <a onclick="scroll2('contact')">Contact</a>
   </div>
@@ -2191,9 +2311,9 @@ body.ready .hero-copy{
 <div class="hero">
   <div class="hero-copy">
     <div class="hero-glow"></div>
-    <div class="badge"><span class="badge-dot"></span>Open to remote roles</div>
+    <div class="badge"><span class="badge-dot"></span>Customer Success · Sales Ops · Systems</div>
     <h1><span class="grad-text">Operations &<br>Systems Thinker</span></h1>
-    <p class="hero-sub">I turn messy operations into clear systems: documented, automated, and easy for real teams to use.</p>
+    <p class="hero-sub">Operations and systems professional building clearer workflows, stronger documentation, cleaner data, and practical tools that help teams move with less friction.</p>
     <div class="hero-btns">
       <button class="btn-glow" onclick="scroll2('contact')">Work with me</button>
       <button class="btn-ghost" onclick="scroll2('projects')">See my work</button>
@@ -2206,17 +2326,17 @@ body.ready .hero-copy{
   <div class="stat">
     <div class="stat-num">5+</div>
     <div class="stat-label">Years</div>
-    <div class="stat-desc">Across support, sales, operations, and systems</div>
+    <div class="stat-desc">Customer success, sales ops, and systems support</div>
   </div>
   <div class="stat">
     <div class="stat-num">$500K+</div>
-    <div class="stat-label">Revenue supported</div>
-    <div class="stat-desc">Through sales operations and customer workflows</div>
+    <div class="stat-label">Revenue contribution</div>
+    <div class="stat-desc">Across appointment setting and sales support roles</div>
   </div>
   <div class="stat">
     <div class="stat-num">100%</div>
     <div class="stat-label">QA score</div>
-    <div class="stat-desc">Quality-focused customer operations</div>
+    <div class="stat-desc">Suntrust / Truist customer experience</div>
   </div>
 </div>
 
@@ -2225,27 +2345,27 @@ body.ready .hero-copy{
 <!-- ABOUT -->
 <section id="about">
   <div class="sec-label">About</div>
-  <div class="sec-title">Operations, systems, and the space between</div>
+  <div class="sec-title">Customer success, sales ops, and practical systems support</div>
   <div class="about-grid">
     <div class="about-card">
       <i class="ti ti-settings-automation about-icon"></i>
-      <h3>I turn bottlenecks into systems</h3>
-      <p>I look for the exact point where work slows down, then create the tracker, automation, SOP, or workflow that makes the next step obvious.</p>
+      <h3>Process improvement</h3>
+      <p>I identify gaps in the way work moves, then turn them into SOPs, trackers, checklists, and workflows that make execution easier to repeat.</p>
     </div>
     <div class="about-card">
       <i class="ti ti-user-heart about-icon"></i>
-      <h3>Built from the user’s side</h3>
-      <p>My CX and ops background keeps the work practical. I design tools for the people entering data, chasing updates, answering clients, and keeping the day moving.</p>
+      <h3>Client and vendor operations</h3>
+      <p>I’ve supported onboarding, training, proactive check-ins, vendor coordination, and client communication where clarity and follow-through matter every day.</p>
     </div>
     <div class="about-card">
       <i class="ti ti-code about-icon"></i>
-      <h3>Documentation plus execution</h3>
-      <p>I can map the process, write the SOP, and build the working layer around it: Zapier flows, Apps Script, Slack workflows, dashboards, and resource hubs.</p>
+      <h3>Documentation plus working tools</h3>
+      <p>I can map the process, write the SOP, and build the supporting layer around it: trackers, dashboards, Slack workflows, resource hubs, and light automation where it makes sense.</p>
     </div>
     <div class="about-card">
       <i class="ti ti-map-pin about-icon"></i>
-      <h3>Remote-ready operations support</h3>
-      <p>Based in Cebu and built for distributed teams. I work well in async environments where clarity, ownership, and clean handoffs matter.</p>
+      <h3>Retail and CRM operations</h3>
+      <p>Comfortable across HubSpot, GHL, Monday.com, retailer portals, sales reporting, data cleanup, stakeholder coordination, and distributed team support.</p>
     </div>
   </div>
 </section>
@@ -2262,6 +2382,7 @@ body.ready .hero-copy{
       <p>This portfolio is also a case study. I used AI tools to pressure-test the structure, refine the visual language, organize project evidence, troubleshoot the build, and turn a rough creative direction into a live portfolio system.</p>
       <div class="project-tags">
         <span class="ptag">AI Workflows</span>
+        <span class="ptag">Codex</span>
         <span class="ptag">Creative Ops</span>
         <span class="ptag">Portfolio Build</span>
       </div>
@@ -2631,7 +2752,7 @@ body.ready .hero-copy{
   <div class="sec-label">Skills</div>
   <div class="sec-title">Tools I actually work in</div>
   <div class="skills-tabs">
-    <button class="stab active" onclick="switchTab('automation',this)">Automation</button>
+    <button class="stab active" onclick="switchTab('automation',this)">Workflow Tools</button>
     <button class="stab" onclick="switchTab('crm',this)">CRM & Ops</button>
     <button class="stab" onclick="switchTab('data',this)">Data</button>
     <button class="stab" onclick="switchTab('design',this)">Design</button>
@@ -2651,6 +2772,9 @@ body.ready .hero-copy{
     <div class="skill-chip"><i class="ti ti-database"></i>Asana</div>
     <div class="skill-chip"><i class="ti ti-database"></i>Notion</div>
     <div class="skill-chip"><i class="ti ti-database"></i>GHL / Close</div>
+    <div class="skill-chip"><i class="ti ti-database"></i>Big Biller</div>
+    <div class="skill-chip"><i class="ti ti-search"></i>Sales Navigator</div>
+    <div class="skill-chip"><i class="ti ti-search"></i>ZoomInfo</div>
     <div class="skill-chip"><i class="ti ti-database"></i>Front</div>
     <div class="skill-chip"><i class="ti ti-database"></i>Copilot</div>
   </div>
@@ -2661,6 +2785,8 @@ body.ready .hero-copy{
     <div class="skill-chip"><i class="ti ti-table"></i>Data Structuring</div>
     <div class="skill-chip"><i class="ti ti-table"></i>Retailer Portals</div>
     <div class="skill-chip"><i class="ti ti-table"></i>1WorldSync / SPINS</div>
+    <div class="skill-chip"><i class="ti ti-table"></i>UNFI / Mable / McLane</div>
+    <div class="skill-chip"><i class="ti ti-table"></i>Data Cleanup</div>
   </div>
   <div id="tab-design" class="skills-panel">
     <div class="skill-chip"><i class="ti ti-brush"></i>Canva</div>
@@ -2672,10 +2798,12 @@ body.ready .hero-copy{
   </div>
   <div id="tab-ai" class="skills-panel">
     <div class="skill-chip"><i class="ti ti-robot"></i>Claude / Prompt Eng.</div>
+    <div class="skill-chip"><i class="ti ti-terminal-2"></i>Codex</div>
     <div class="skill-chip"><i class="ti ti-robot"></i>AI Workflow Design</div>
     <div class="skill-chip"><i class="ti ti-robot"></i>Process Improvement</div>
     <div class="skill-chip"><i class="ti ti-robot"></i>SOP Development</div>
-    <div class="skill-chip"><i class="ti ti-robot"></i>Systems Thinking</div>
+    <div class="skill-chip"><i class="ti ti-robot"></i>Prompt Engineering</div>
+    <div class="skill-chip"><i class="ti ti-robot"></i>AI-Assisted Drafting</div>
   </div>
 </section>
 
@@ -2683,36 +2811,36 @@ body.ready .hero-copy{
 
 <!-- TIMELINE -->
 <section id="timeline">
-  <div class="sec-label">Timeline</div>
-  <div class="sec-title">5 years across customers, sales, and systems</div>
+  <div class="sec-label">Experience Overview</div>
+  <div class="sec-title">Where my experience comes together</div>
   <div class="tl">
     <div class="tl-item">
       <div class="tl-dot"></div>
-      <div class="tl-date">May 2024 – May 2026</div>
-      <div class="tl-role">Sr. Customer Success & Operations Representative</div>
-      <div class="tl-company">Cleango</div>
-      <div class="tl-desc">Supported customer operations, vendor coordination, SOPs, onboarding systems, service workflows, and day-to-day process improvements.</div>
+      <div class="tl-date">Client Operations</div>
+      <div class="tl-role">Customer Success & Support</div>
+      <div class="tl-company">Onboarding · Training · Retention</div>
+      <div class="tl-desc">Guiding clients through setup, support, follow-up, vendor coordination, and the everyday details that keep service delivery smooth.</div>
     </div>
     <div class="tl-item">
       <div class="tl-dot"></div>
-      <div class="tl-date">Jan 2022 – May 2024</div>
-      <div class="tl-role">Sales Operations & Systems Support</div>
-      <div class="tl-company">Multiple Companies (Contract)</div>
-      <div class="tl-desc">Built internal trackers, KPI dashboards, sales enablement materials, CRM workflows, and operating systems across multiple teams and brands.</div>
+      <div class="tl-date">Sales Operations</div>
+      <div class="tl-role">Revenue & Team Support</div>
+      <div class="tl-company">CRM · Dashboards · Sales Enablement</div>
+      <div class="tl-desc">Supporting sales teams with cleaner CRM data, reporting visibility, account resources, pitch materials, and organized follow-through.</div>
     </div>
     <div class="tl-item">
       <div class="tl-dot"></div>
-      <div class="tl-date">Jan 2021 – Jan 2022</div>
-      <div class="tl-role">Sales Account Executive / Account Manager</div>
-      <div class="tl-company">C&M Legal Search</div>
-      <div class="tl-desc">Managed lead generation, CRM hygiene, client communication, pipeline updates, and relationship support for a sales-driven environment.</div>
+      <div class="tl-date">Process & Documentation</div>
+      <div class="tl-role">SOPs, Hubs, and Repeatable Workflows</div>
+      <div class="tl-company">Notion · Sheets · Team Documentation</div>
+      <div class="tl-desc">Turning scattered knowledge into operating guides, resource hubs, checklists, and repeatable workflows that are easier for distributed teams to use.</div>
     </div>
     <div class="tl-item">
       <div class="tl-dot"></div>
-      <div class="tl-date">Sep 2020 – 2021</div>
-      <div class="tl-role">Customer Care Representative</div>
-      <div class="tl-company">Suntrust / Truist Bank</div>
-      <div class="tl-desc">Handled high-volume customer support with strong quality standards, clear communication, and a 100% QA score.</div>
+      <div class="tl-date">Systems Thinking</div>
+      <div class="tl-role">Tools That Reduce Friction</div>
+      <div class="tl-company">AI · Apps Script · Slack · Canva · Codex</div>
+      <div class="tl-desc">Using the right mix of tools to make work easier: dashboards, data cleanup, AI-assisted drafting, asset routing, and practical internal systems.</div>
     </div>
   </div>
 </section>
@@ -2722,20 +2850,19 @@ body.ready .hero-copy{
 <!-- RESUME -->
 <section id="resume">
   <div class="sec-label">Resume</div>
-  <div class="sec-title">Full work history & skills</div>
+  <div class="sec-title">Resume, tools, and work history</div>
   <div class="resume-box">
     <div class="resume-preview live-resume">
-      <iframe src="https://www.canva.com/design/DAEmjyt7oDY/g8yJcmf6WhSxJV8upSqhNw/view?embed" loading="lazy" allowfullscreen allow="fullscreen" onload="this.parentElement.classList.add('loaded')"></iframe>
+      <iframe src="assets/GG-Bernal-Resume.pdf" loading="lazy" allowfullscreen allow="fullscreen" onload="this.parentElement.classList.add('loaded')"></iframe>
       <div class="resume-fallback">
         <i class="ti ti-file-text"></i>
         <strong>Golden Grace Bernal — Resume</strong>
-        <span>Live resume preview loads here when Canva allows embedding.</span>
+        <span>Full resume preview loads here. Use the buttons below if your browser opens PDFs in a new tab.</span>
       </div>
     </div>
     <div class="resume-actions">
-      <!-- REPLACE # WITH YOUR GOOGLE DRIVE OR NOTION PDF LINK -->
-      <a href="https://canva.link/uhdrm63xkkrrfsj" class="res-btn res-btn-primary" target="_blank" rel="noopener"><i class="ti ti-external-link"></i>Open live resume</a>
-      <a href="https://canva.link/uhdrm63xkkrrfsj" class="res-btn res-btn-secondary" target="_blank" rel="noopener"><i class="ti ti-eye"></i>View full resume</a>
+      <a href="assets/GG-Bernal-Resume.pdf" class="res-btn res-btn-primary" target="_blank" rel="noopener"><i class="ti ti-external-link"></i>Open resume PDF</a>
+      <a href="assets/GG-Bernal-Resume.pdf" class="res-btn res-btn-secondary" download><i class="ti ti-download"></i>Download resume</a>
     </div>
   </div>
 </section>
@@ -2745,8 +2872,8 @@ body.ready .hero-copy{
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-box">
-    <h2>Let’s build cleaner systems</h2>
-    <p>Open to remote operations, systems, automation, and sales ops roles where thoughtful execution matters.</p>
+    <h2>Let’s make operations easier to run</h2>
+    <p>Open to remote customer success operations, sales operations, operations support, and systems support roles.</p>
     <div class="contact-links">
       <a class="clink" href="mailto:goldenbernal@gmail.com"><i class="ti ti-mail"></i>goldenbernal@gmail.com</a>
       <a class="clink" href="tel:+639169682036"><i class="ti ti-phone"></i>+63 (916) 968-2036</a>
@@ -2815,10 +2942,10 @@ const projects = {
   resumeAsset:{
     title:"Golden Grace Bernal — Resume",
     meta:"Resume · Work History · Systems & Operations",
-    desc:"A fuller view of my work history across customer operations, sales support, systems, automation, documentation, and cross-functional execution.",
+    desc:"A fuller view of my experience across customer success, sales operations, SOP development, CRM support, KPI dashboards, retailer portals, documentation, and AI-assisted workflow design.",
     tags:["Resume","Operations","Systems"],
-    embedUrl:"https://www.canva.com/design/DAEmjyt7oDY/g8yJcmf6WhSxJV8upSqhNw/view?embed",
-    assetUrl:"https://canva.link/uhdrm63xkkrrfsj"
+    embedUrl:"assets/GG-Bernal-Resume.pdf",
+    assetUrl:"assets/GG-Bernal-Resume.pdf"
   }
 };
 
