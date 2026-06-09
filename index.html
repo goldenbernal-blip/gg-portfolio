@@ -2152,6 +2152,10 @@ body.ready .hero-copy{
 }
 
 /* READABILITY PASS */
+/* Keep the portfolio visible even if a future link edit introduces a JavaScript error. */
+body{
+  opacity:1;
+}
 .hero-copy,
 .stats,
 .process-copy{
@@ -2862,7 +2866,7 @@ body.ready .hero-copy{
     </div>
     <div class="resume-actions">
       <a href="assets/GG-Bernal-Resume.pdf" class="res-btn res-btn-primary" target="_blank" rel="noopener"><i class="ti ti-external-link"></i>Open resume PDF</a>
-      <a href="assets/GG-Bernal-Resume.pdf" class="res-btn res-btn-secondary" download><i class="ti ti-download"></i>Download resume</a>
+      <a href="https://canva.link/uhdrm63xkkrrfsj" class="res-btn res-btn-secondary" target="_blank" rel="noopener"><i class="ti ti-external-link"></i>Open Canva resume</a>
     </div>
   </div>
 </section>
@@ -2944,9 +2948,10 @@ const projects = {
     meta:"Resume · Work History · Systems & Operations",
     desc:"A fuller view of my experience across customer success, sales operations, SOP development, CRM support, KPI dashboards, retailer portals, documentation, and AI-assisted workflow design.",
     tags:["Resume","Operations","Systems"],
-    embedUrl:"https://canva.link/uhdrm63xkkrrfsj",
+    embedUrl:"assets/GG-Bernal-Resume.pdf",
     assetUrl:"https://canva.link/uhdrm63xkkrrfsj"
-},
+  }
+};
 
 const hubSections = {
   trackers:{
