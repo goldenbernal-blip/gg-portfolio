@@ -3250,7 +3250,7 @@ canvas#bg,
   transform:translate3d(calc(var(--scene-drift-x) * -.18),calc(var(--scene-drift-y) * -.18),0) scale(1.1);
 }
 .garden-mist{
-  background-image:url("assets/glass-garden/glass-garden-mist-overlay.png");
+  background-image:url("glass-garden-mist-overlay.png");
   background-size:cover;
   mix-blend-mode:screen;
   opacity:var(--mist-opacity);
@@ -3270,7 +3270,7 @@ canvas#bg,
   inset:-2%;
   background-image:
     linear-gradient(90deg,rgba(4,8,11,.94) 0%,rgba(4,8,11,.66) 38%,rgba(4,8,11,.08) 76%,rgba(4,8,11,.22) 100%),
-    url("assets/glass-garden/glass-garden-main-01.png");
+    url("glass-garden-main-01.png");
   background-size:cover;
   background-position:center;
   opacity:.9;
@@ -3279,7 +3279,7 @@ canvas#bg,
   transform-origin:70% 45%;
 }
 .garden-bloom-scene{
-  background-image:url("assets/glass-garden/glass-garden-main-04.png");
+  background-image:url("glass-garden-main-04.png");
   background-size:cover;
   background-position:center;
   mix-blend-mode:screen;
@@ -3299,14 +3299,14 @@ canvas#bg,
   transform-style:preserve-3d;
 }
 .wing-left{
-  background-image:url("assets/glass-garden/glass-garden-wing-left.png");
+  background-image:url("glass-garden-wing-left.png");
   transform-origin:63% 52%;
   transform:translate3d(calc(var(--scene-drift-x) * 1.25),calc(var(--scene-drift-y) * .8),30px) rotateY(calc(-10deg - var(--wing-open) * 13deg)) rotateZ(calc(-1deg + var(--my) * 1deg)) scale(calc(.82 + var(--world-zoom) * .18));
   -webkit-mask-image:linear-gradient(90deg,transparent 0%,transparent 44%,#000 59%,#000 87%,transparent 100%);
   mask-image:linear-gradient(90deg,transparent 0%,transparent 44%,#000 59%,#000 87%,transparent 100%);
 }
 .wing-right{
-  background-image:url("assets/glass-garden/glass-garden-wing-right.png");
+  background-image:url("glass-garden-wing-right.png");
   transform-origin:67% 51%;
   transform:translate3d(calc(var(--scene-drift-x) * 1.05),calc(var(--scene-drift-y) * .65),38px) rotateY(calc(12deg + var(--wing-open) * 16deg)) rotateZ(calc(1deg + var(--mx) * 1deg)) scale(calc(.82 + var(--world-zoom) * .18));
   opacity:calc(.07 + var(--wing-open) * .17);
@@ -3314,7 +3314,7 @@ canvas#bg,
   mask-image:linear-gradient(90deg,transparent 0%,transparent 45%,#000 62%,#000 89%,transparent 100%);
 }
 .garden-growth{
-  background-image:url("assets/glass-garden/glass-garden-flower-growth.png");
+  background-image:url("glass-garden-flower-growth.png");
   background-size:cover;
   background-position:center bottom;
   mix-blend-mode:screen;
@@ -3326,7 +3326,7 @@ canvas#bg,
   mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.4) 35%,#000 72%);
 }
 .garden-petals{
-  background-image:url("assets/glass-garden/glass-garden-petals-overlay.png");
+  background-image:url("glass-garden-petals-overlay.png");
   background-size:cover;
   mix-blend-mode:screen;
   opacity:calc(.12 + var(--garden-growth) * .42);
@@ -3336,7 +3336,7 @@ canvas#bg,
 }
 .garden-refraction{
   inset:-8%;
-  background-image:url("assets/glass-garden/glass-garden-refraction-overlay.png");
+  background-image:url("glass-garden-refraction-overlay.png");
   background-size:cover;
   background-position:var(--shimmer-x) center;
   mix-blend-mode:screen;
@@ -3457,7 +3457,7 @@ section{
   position:absolute;
   z-index:-1;
   pointer-events:none;
-  background:url("assets/glass-garden/glass-garden-petals-overlay.png") center/cover no-repeat;
+  background:url("glass-garden-petals-overlay.png") center/cover no-repeat;
   mix-blend-mode:screen;
   opacity:.12;
   filter:saturate(.8) brightness(.72);
@@ -3504,7 +3504,7 @@ section{
   height:48%;
   z-index:0;
   border-radius:inherit;
-  background:url("assets/glass-garden/glass-garden-flower-growth.png") center bottom/cover no-repeat;
+  background:url("glass-garden-flower-growth.png") center bottom/cover no-repeat;
   mix-blend-mode:screen;
   opacity:.22;
   filter:saturate(.9) brightness(.78);
@@ -3584,7 +3584,7 @@ section{
   content:'';
   position:absolute;
   inset:0;
-  background:url("assets/glass-garden/glass-garden-refraction-overlay.png") center/cover;
+  background:url("glass-garden-refraction-overlay.png") center/cover;
   mix-blend-mode:screen;
   opacity:.13;
   animation:modalGardenBloom .7s ease both;
@@ -3612,7 +3612,7 @@ body[data-garden-section="contact"] .garden-refraction{opacity:.46}
   .garden-scene{
     background-image:
       linear-gradient(180deg,rgba(4,8,11,.2) 0%,rgba(4,8,11,.62) 52%,rgba(4,8,11,.96) 84%),
-      url("assets/glass-garden/glass-garden-main-02.png");
+      url("glass-garden-main-02.png");
     background-position:62% top;
   }
   .garden-wing{background-size:auto 64vh;background-position:60% top}
@@ -3630,7 +3630,7 @@ body[data-garden-section="contact"] .garden-refraction{opacity:.46}
   .garden-scene{
     background-image:
       linear-gradient(180deg,rgba(4,8,11,.14) 0%,rgba(4,8,11,.5) 52%,rgba(4,8,11,.94) 86%),
-      url("assets/glass-garden/glass-garden-main-03.png");
+      url("glass-garden-main-03.png");
     background-position:64% top;
     filter:saturate(.9) contrast(1.03) brightness(.92);
     transform:scale(1.04);
@@ -3769,7 +3769,7 @@ body[data-garden-section="contact"] .garden-petals{opacity:.46;transform:transla
   height:44%;
   z-index:-1;
   pointer-events:none;
-  background:url("assets/glass-garden/glass-garden-flower-growth.png") center bottom/cover no-repeat;
+  background:url("glass-garden-flower-growth.png") center bottom/cover no-repeat;
   mix-blend-mode:screen;
   opacity:.28;
   filter:saturate(.92) brightness(.76);
@@ -4033,7 +4033,7 @@ body:not([data-garden-section="hero"]) .hero-butterfly-video{opacity:0}
 <!-- HERO -->
 <div class="hero">
   <video class="hero-butterfly-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-    <source src="assets/videos/glass-garden-hero-loop.mp4" type="video/mp4">
+    <source src="glass-garden-hero-loop.mp4" type="video/mp4">
   </video>
   <div class="hero-copy">
     <div class="hero-glow"></div>
@@ -4684,7 +4684,7 @@ const projects = {
     desc:"Built an AI-assisted intake flow for requests that arrived in inconsistent formats. Claude parses the raw input into structured JSON, Zapier routes it through a webhook, and Google Apps Script cleans, deduplicates, and writes the records into Sheets. The result is a repeatable pipeline that reduces manual field-by-field entry and makes bulk request handling easier to scale.",
     tags:["Claude API","Zapier","Apps Script","JSON","Webhooks","Google Sheets"],
     embedUrl:"#",
-    videoUrl:"assets/videos/ai-data-intake-pipeline.mp4",
+    videoUrl:"ai-data-intake-pipeline.mp4",
     assetUrl:"https://canva.link/c5q31durnpg03m9"
   },
   p2:{
@@ -4693,7 +4693,7 @@ const projects = {
     desc:"Built a serverless Slack command workflow on Vercel so teammates could request specific retail asset links directly from Slack. Instead of searching through folders or asking another person for the latest file, the command returns the right destination in the same workspace where the request starts.",
     tags:["Vercel","Node.js","Slack API","Serverless","JavaScript"],
     embedUrl:"#",
-    videoUrl:"assets/videos/slack-asset-router-bot.mp4",
+    videoUrl:"slack-asset-router-bot.mp4",
     assetUrl:"https://canva.link/afh0qbyzm74tpir"
   },
   p3:{
