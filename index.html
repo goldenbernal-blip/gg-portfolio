@@ -3197,26 +3197,822 @@ body.cursor-active .cursor-light{opacity:1}
   .case-slide.active .cs-arch-arrow i,.case-slide.active .cs-arch-node{animation:none}
 }
 
+/* LIVING GLASS GARDEN */
+:root{
+  --scroll:0;
+  --scroll-progress:0;
+  --mx:0;
+  --my:0;
+  --wing-open:0;
+  --garden-growth:0;
+  --world-zoom:1;
+  --mist-opacity:.7;
+  --shimmer-x:50%;
+  --scene-drift-x:0px;
+  --scene-drift-y:0px;
+  --garden-pink:#f2a9bd;
+  --garden-moss:#718d69;
+  --garden-ice:#cbe9f4;
+  --garden-night:#050a0d;
+}
+body{
+  background:var(--garden-night);
+}
+.bg-video,
+canvas#bg,
+.orb,
+.cursor-light{
+  display:none !important;
+}
+.garden-world{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
+  pointer-events:none;
+  background:#04080b;
+  perspective:1200px;
+}
+.garden-layer{
+  position:absolute;
+  inset:-4%;
+  background-position:center;
+  background-repeat:no-repeat;
+  transition:opacity 1.2s ease,filter 1.2s ease;
+}
+.garden-scene,.garden-growth,.garden-petals,.garden-refraction,.garden-wing{will-change:transform,opacity}
+.garden-atmosphere{
+  inset:-8%;
+  background:
+    radial-gradient(circle at 74% 38%,rgba(199,233,244,.17),transparent 31%),
+    radial-gradient(circle at 18% 78%,rgba(126,154,111,.13),transparent 33%),
+    linear-gradient(115deg,#04080b 8%,#0a1519 48%,#061014 100%);
+  transform:translate3d(calc(var(--scene-drift-x) * -.18),calc(var(--scene-drift-y) * -.18),0) scale(1.1);
+}
+.garden-mist{
+  background-image:url("assets/glass-garden/glass-garden-mist-overlay.png");
+  background-size:cover;
+  mix-blend-mode:screen;
+  opacity:var(--mist-opacity);
+  filter:blur(2px) brightness(.75) saturate(.72);
+  transform:translate3d(calc(var(--scene-drift-x) * -.35),calc(var(--scene-drift-y) * -.3),0) scale(1.12);
+  animation:gardenMist 18s ease-in-out infinite alternate;
+}
+.garden-beams{
+  inset:-12%;
+  background:
+    conic-gradient(from 200deg at 72% -12%,transparent 0deg,rgba(207,238,250,.11) 13deg,transparent 28deg,rgba(255,255,255,.06) 43deg,transparent 61deg);
+  opacity:.7;
+  filter:blur(12px);
+  transform:translate3d(calc(var(--scene-drift-x) * -.12),0,0) rotate(calc(var(--scroll-progress) * 3deg));
+}
+.garden-scene{
+  inset:-2%;
+  background-image:
+    linear-gradient(90deg,rgba(4,8,11,.94) 0%,rgba(4,8,11,.66) 38%,rgba(4,8,11,.08) 76%,rgba(4,8,11,.22) 100%),
+    url("assets/glass-garden/glass-garden-main-01.png");
+  background-size:cover;
+  background-position:center;
+  opacity:.9;
+  filter:saturate(.86) contrast(1.04) brightness(.82);
+  transform:translate3d(var(--scene-drift-x),var(--scene-drift-y),0) scale(var(--world-zoom));
+  transform-origin:70% 45%;
+}
+.garden-bloom-scene{
+  background-image:url("assets/glass-garden/glass-garden-main-04.png");
+  background-size:cover;
+  background-position:center;
+  mix-blend-mode:screen;
+  opacity:calc(.04 + var(--garden-growth) * .46);
+  filter:saturate(.8) brightness(.64);
+  transform:translate3d(calc(var(--scene-drift-x) * .6),calc(var(--scene-drift-y) * .6),0) scale(calc(.98 + var(--garden-growth) * .08));
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.22) 42%,#000 72%,rgba(0,0,0,.4) 100%);
+  mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.22) 42%,#000 72%,rgba(0,0,0,.4) 100%);
+}
+.garden-wing{
+  inset:-3%;
+  background-size:cover;
+  background-position:center;
+  mix-blend-mode:screen;
+  opacity:calc(.1 + var(--wing-open) * .2);
+  filter:brightness(.86) saturate(.78) drop-shadow(0 0 20px rgba(203,233,244,.12));
+  transform-style:preserve-3d;
+}
+.wing-left{
+  background-image:url("assets/glass-garden/glass-garden-wing-left.png");
+  transform-origin:63% 52%;
+  transform:translate3d(calc(var(--scene-drift-x) * 1.25),calc(var(--scene-drift-y) * .8),30px) rotateY(calc(-10deg - var(--wing-open) * 13deg)) rotateZ(calc(-1deg + var(--my) * 1deg)) scale(calc(.82 + var(--world-zoom) * .18));
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,transparent 44%,#000 59%,#000 87%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0%,transparent 44%,#000 59%,#000 87%,transparent 100%);
+}
+.wing-right{
+  background-image:url("assets/glass-garden/glass-garden-wing-right.png");
+  transform-origin:67% 51%;
+  transform:translate3d(calc(var(--scene-drift-x) * 1.05),calc(var(--scene-drift-y) * .65),38px) rotateY(calc(12deg + var(--wing-open) * 16deg)) rotateZ(calc(1deg + var(--mx) * 1deg)) scale(calc(.82 + var(--world-zoom) * .18));
+  opacity:calc(.07 + var(--wing-open) * .17);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,transparent 45%,#000 62%,#000 89%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0%,transparent 45%,#000 62%,#000 89%,transparent 100%);
+}
+.garden-growth{
+  background-image:url("assets/glass-garden/glass-garden-flower-growth.png");
+  background-size:cover;
+  background-position:center bottom;
+  mix-blend-mode:screen;
+  opacity:calc(.1 + var(--garden-growth) * .88);
+  filter:saturate(.98) brightness(.88);
+  transform-origin:center bottom;
+  transform:translate3d(calc(var(--scene-drift-x) * .5),0,45px) scaleY(calc(.28 + var(--garden-growth) * .72)) scaleX(calc(.94 + var(--garden-growth) * .06));
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.4) 35%,#000 72%);
+  mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.4) 35%,#000 72%);
+}
+.garden-petals{
+  background-image:url("assets/glass-garden/glass-garden-petals-overlay.png");
+  background-size:cover;
+  mix-blend-mode:screen;
+  opacity:calc(.12 + var(--garden-growth) * .42);
+  filter:saturate(.8) brightness(.8);
+  transform:translate3d(calc(var(--scene-drift-x) * 1.7),calc(var(--scene-drift-y) * 1.45),70px) scale(1.06);
+  animation:petalFloat 16s ease-in-out infinite alternate;
+}
+.garden-refraction{
+  inset:-8%;
+  background-image:url("assets/glass-garden/glass-garden-refraction-overlay.png");
+  background-size:cover;
+  background-position:var(--shimmer-x) center;
+  mix-blend-mode:screen;
+  opacity:calc(.13 + var(--garden-growth) * .18);
+  filter:brightness(.86) saturate(.78);
+  transform:translate3d(calc(var(--scene-drift-x) * 1.9),calc(var(--scene-drift-y) * 1.4),90px) scale(1.13) rotate(calc(var(--scroll-progress) * 2deg));
+}
+.garden-foreground{
+  inset:0;
+  background:
+    linear-gradient(90deg,rgba(4,8,11,.88) 0%,rgba(4,8,11,.42) 47%,transparent 77%),
+    linear-gradient(180deg,rgba(4,8,11,.12),transparent 46%,rgba(4,8,11,.72)),
+    radial-gradient(circle at 50% 110%,rgba(181,221,210,.13),transparent 45%);
+}
+.garden-pulse{
+  position:absolute;
+  right:18%;
+  top:38%;
+  width:22rem;
+  aspect-ratio:1;
+  border-radius:50%;
+  opacity:0;
+  border:1px solid rgba(223,244,250,.35);
+  box-shadow:0 0 70px rgba(217,239,246,.2),inset 0 0 60px rgba(242,169,189,.12);
+  transform:translate(-50%,-50%) scale(.3);
+}
+body.garden-click .garden-pulse{animation:gardenPulse .85s ease-out both}
+@keyframes gardenMist{to{transform:translate3d(calc(var(--scene-drift-x) * -.35 - 24px),calc(var(--scene-drift-y) * -.3 + 14px),0) scale(1.16)}}
+@keyframes petalFloat{to{transform:translate3d(calc(var(--scene-drift-x) * 1.7 - 20px),calc(var(--scene-drift-y) * 1.45 + 26px),70px) scale(1.1)}}
+@keyframes gardenPulse{0%{opacity:.75;transform:translate(-50%,-50%) scale(.25)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.5)}}
+
+.layer{z-index:2}
+nav{
+  background:linear-gradient(180deg,rgba(4,9,12,.8),rgba(4,9,12,.42));
+  border-bottom:1px solid rgba(224,242,247,.12);
+  box-shadow:0 12px 42px rgba(0,0,0,.16);
+}
+.hero{
+  min-height:100svh;
+  max-width:1240px;
+  padding-top:clamp(7rem,12vh,10rem);
+  padding-bottom:7rem;
+  align-items:center;
+}
+.hero-copy{
+  width:min(620px,calc(100% - 1rem));
+  padding:clamp(1.7rem,3vw,2.6rem);
+  background:linear-gradient(135deg,rgba(15,27,31,.62),rgba(7,15,18,.3));
+  border:1px solid rgba(225,244,248,.19);
+  box-shadow:0 32px 100px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.13);
+  backdrop-filter:blur(20px) saturate(145%);
+  -webkit-backdrop-filter:blur(20px) saturate(145%);
+}
+.hero h1{font-size:clamp(48px,7.4vw,94px);line-height:.94}
+.grad-text{
+  background:linear-gradient(125deg,#fff 15%,#d7edf4 47%,#f3b2c3 77%,#d9efe6);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:none;
+}
+.hero-sub{max-width:500px;font-size:clamp(16px,1.5vw,19px)}
+section{
+  max-width:1180px;
+  min-height:82vh;
+  padding-block:clamp(5rem,10vh,8.5rem);
+}
+.divider{opacity:.35}
+.stats{
+  max-width:1040px;
+  margin:-3.2rem auto 2rem;
+  padding:.7rem;
+  background:rgba(7,16,19,.36);
+  border-color:rgba(224,242,247,.14);
+  backdrop-filter:blur(22px) saturate(140%);
+}
+.stat{background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.025))}
+.sec-label{color:rgba(222,239,244,.7)}
+.sec-title{
+  max-width:650px;
+  font-size:clamp(30px,4vw,52px);
+  line-height:1.02;
+}
+.about-grid{
+  grid-template-columns:minmax(250px,1fr) minmax(250px,1fr);
+  max-width:810px;
+  gap:1.1rem;
+}
+.about-card:nth-child(even){transform:translateY(4.5rem)}
+.about-card,
+.project-card,
+.process-card,
+.resume-box,
+.contact-box,
+.case-deck,
+.tl,
+.skill-chip{
+  background:linear-gradient(135deg,rgba(223,244,247,.105),rgba(9,20,23,.25) 50%,rgba(255,190,208,.035));
+  border:1px solid rgba(228,245,249,.16);
+  box-shadow:0 24px 75px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.11);
+  backdrop-filter:blur(18px) saturate(145%);
+  -webkit-backdrop-filter:blur(18px) saturate(145%);
+}
+.stat,
+.about-card,
+.project-card,
+.skill-chip,
+.tl-item{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+}
+.stat::after,
+.about-card::before,
+.skill-chip::after,
+.tl-item::after{
+  content:'';
+  position:absolute;
+  z-index:-1;
+  pointer-events:none;
+  background:url("assets/glass-garden/glass-garden-petals-overlay.png") center/cover no-repeat;
+  mix-blend-mode:screen;
+  opacity:.12;
+  filter:saturate(.8) brightness(.72);
+}
+.stat::after{
+  width:210px;height:150px;right:-72px;bottom:-65px;
+}
+.about-card::before{
+  inset:auto -45% -45% 15%;
+  height:78%;
+  opacity:.15;
+}
+.about-card:nth-child(even)::before{
+  transform:scaleX(-1);
+  inset:auto 15% -45% -45%;
+}
+.skill-chip::after{
+  width:105px;height:72px;right:-45px;bottom:-38px;opacity:.1;
+}
+.tl-item::after{
+  width:180px;height:120px;right:-45px;bottom:-54px;opacity:.09;
+}
+.about-card:hover,
+.project-card:hover,
+.skill-chip:hover{
+  background:linear-gradient(135deg,rgba(226,245,249,.15),rgba(12,27,30,.32) 52%,rgba(242,169,189,.07));
+  border-color:rgba(228,245,249,.29);
+}
+.project-grid{
+  grid-template-columns:repeat(12,1fr);
+  gap:1.25rem;
+}
+.project-card{
+  grid-column:span 6;
+  min-height:560px;
+  background:
+    radial-gradient(circle at var(--mx,50%) var(--my,30%),rgba(203,234,242,.12),transparent 32%),
+    linear-gradient(145deg,rgba(222,242,246,.11),rgba(8,19,22,.3) 55%,rgba(242,169,189,.05));
+  background-blend-mode:screen,normal;
+}
+.project-card::before{
+  inset:auto -8% -9%;
+  width:auto;
+  height:48%;
+  z-index:0;
+  border-radius:inherit;
+  background:url("assets/glass-garden/glass-garden-flower-growth.png") center bottom/cover no-repeat;
+  mix-blend-mode:screen;
+  opacity:.22;
+  filter:saturate(.9) brightness(.78);
+  transition:opacity .35s ease,transform .55s cubic-bezier(.2,.8,.2,1);
+}
+.project-card:hover::before{
+  opacity:.42;
+  transform:translateY(-7px) scale(1.025);
+}
+.project-card:first-child{grid-column:span 8}
+.project-card:nth-child(2){grid-column:span 4}
+.project-card:nth-child(3),
+.project-card:nth-child(4),
+.project-card:nth-child(5){
+  grid-column:span 4;
+  min-height:540px;
+}
+.project-card:nth-child(3) .project-preview,
+.project-card:nth-child(4) .project-preview,
+.project-card:nth-child(5) .project-preview{
+  min-height:220px;
+}
+.project-preview{min-height:250px}
+.project-card::after,
+.experience-surface::after{
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(214,240,247,.13),transparent 42%);
+}
+.skills-panel.active{
+  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  max-width:850px;
+}
+.skill-chip:nth-child(3n + 2){transform:translateY(9px)}
+.skill-chip:nth-child(4n){transform:translateY(-6px)}
+.tl{max-width:720px}
+.process-section{min-height:auto}
+.process-card{max-width:930px;margin-left:auto}
+.resume-box{max-width:880px}
+.contact-box{
+  max-width:860px;
+  margin-inline:auto;
+  padding-block:clamp(4rem,10vh,7rem);
+  background:linear-gradient(135deg,rgba(231,247,249,.14),rgba(11,25,27,.25),rgba(242,169,189,.08));
+}
+.btn-glow,.btn-ghost,.res-btn,.clink,.modal-link,.case-btn{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+}
+.btn-glow::before,.btn-ghost::before,.res-btn::before,.clink::before,.modal-link::before,.case-btn::before{
+  content:'';
+  position:absolute;
+  inset:-80% -30%;
+  z-index:-1;
+  background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.38) 48%,transparent 61%);
+  transform:translateX(-65%) rotate(8deg);
+  transition:transform .65s cubic-bezier(.2,.8,.2,1);
+}
+.btn-glow:hover::before,.btn-ghost:hover::before,.res-btn:hover::before,.clink:hover::before,.modal-link:hover::before,.case-btn:hover::before{
+  transform:translateX(65%) rotate(8deg);
+}
+.glass-ripple{
+  position:absolute;
+  z-index:4;
+  width:12px;height:12px;
+  border-radius:50%;
+  background:rgba(255,255,255,.52);
+  pointer-events:none;
+  transform:translate(-50%,-50%) scale(0);
+  animation:glassRipple .7s ease-out forwards;
+}
+@keyframes glassRipple{to{opacity:0;transform:translate(-50%,-50%) scale(16)}}
+.modal-overlay{
+  background:rgba(3,8,10,.52);
+  backdrop-filter:blur(26px) saturate(145%);
+}
+.modal-overlay.open::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:url("assets/glass-garden/glass-garden-refraction-overlay.png") center/cover;
+  mix-blend-mode:screen;
+  opacity:.13;
+  animation:modalGardenBloom .7s ease both;
+}
+.modal{
+  background:linear-gradient(145deg,rgba(22,39,42,.82),rgba(4,11,13,.82));
+  border-color:rgba(228,245,249,.24);
+  box-shadow:0 35px 120px rgba(0,0,0,.48),inset 0 1px 0 rgba(255,255,255,.16);
+}
+@keyframes modalGardenBloom{from{opacity:0;transform:scale(1.12)}to{opacity:.13;transform:scale(1)}}
+body[data-garden-section="about"] .garden-growth{filter:saturate(1) brightness(.95)}
+body[data-garden-section="projects"] .garden-bloom-scene{opacity:.34}
+body[data-garden-section="projects"] .garden-petals{opacity:.58}
+body[data-garden-section="field-reporting"] .garden-bloom-scene{opacity:.42}
+body[data-garden-section="field-reporting"] .garden-wing{opacity:calc(.2 + var(--wing-open) * .26)}
+body[data-garden-section="skills"] .garden-growth,
+body[data-garden-section="timeline"] .garden-growth{filter:saturate(1.05) brightness(1)}
+body[data-garden-section="process"] .garden-refraction,
+body[data-garden-section="resume"] .garden-refraction{opacity:.4}
+body[data-garden-section="contact"] .garden-growth{opacity:1;filter:saturate(1.1) brightness(1.08)}
+body[data-garden-section="contact"] .garden-bloom-scene{opacity:.58}
+body[data-garden-section="contact"] .garden-refraction{opacity:.46}
+
+@media(max-width:980px){
+  .garden-scene{
+    background-image:
+      linear-gradient(180deg,rgba(4,8,11,.2) 0%,rgba(4,8,11,.62) 52%,rgba(4,8,11,.96) 84%),
+      url("assets/glass-garden/glass-garden-main-02.png");
+    background-position:62% top;
+  }
+  .garden-wing{background-size:auto 64vh;background-position:60% top}
+  .garden-growth{background-size:auto 62vh;background-position:center bottom}
+  .garden-foreground{background:linear-gradient(180deg,rgba(4,8,11,.08),rgba(4,8,11,.64) 52%,rgba(4,8,11,.92))}
+  .hero{padding-inline:1.25rem;align-items:flex-end}
+  .hero-copy{width:100%;margin:0}
+  .project-grid{grid-template-columns:1fr}
+  .project-card,.project-card:first-child,.project-card:nth-child(2),.project-card:nth-child(3),.project-card:nth-child(4),.project-card:nth-child(5){grid-column:auto;min-height:auto}
+  .project-preview{min-height:230px}
+}
+@media(max-width:640px){
+  .garden-world{opacity:.96}
+  .garden-mist,.garden-refraction{filter:none}
+  .garden-scene{
+    background-image:
+      linear-gradient(180deg,rgba(4,8,11,.14) 0%,rgba(4,8,11,.5) 52%,rgba(4,8,11,.94) 86%),
+      url("assets/glass-garden/glass-garden-main-03.png");
+    background-position:64% top;
+    filter:saturate(.9) contrast(1.03) brightness(.92);
+    transform:scale(1.04);
+  }
+  .garden-wing{opacity:.1;background-size:auto 50vh}
+  .garden-growth{background-size:auto 50vh}
+  nav{
+    position:sticky;
+    top:0;
+    flex-wrap:nowrap;
+    align-items:center;
+    padding:.75rem 1rem;
+    gap:1rem;
+  }
+  .logo{width:auto;flex:0 0 auto}
+  .nav-links{
+    width:auto;
+    flex:1 1 auto;
+    flex-wrap:nowrap;
+    justify-content:flex-start;
+    overflow-x:auto;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{flex:0 0 auto}
+  .hero{min-height:100svh;padding-top:5.5rem;padding-bottom:5.5rem}
+  .hero h1{font-size:clamp(43px,14vw,62px)}
+  .hero-copy{padding:1.3rem;background:linear-gradient(145deg,rgba(7,17,20,.76),rgba(7,17,20,.48))}
+  .stats{margin:0;padding:1rem;border-radius:0}
+  section{min-height:auto;padding-block:4.5rem}
+  .about-grid{grid-template-columns:1fr}
+  .about-card:nth-child(even){transform:none}
+  .skill-chip:nth-child(n){transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .garden-layer{animation:none !important;transition:none !important}
+  .garden-wing{transform:none;opacity:.1}
+}
+
+/* PERFORMANCE CLEANUP: one scene, one bloom, one petal layer */
+.garden-mist,
+.garden-beams,
+.garden-bloom-scene,
+.garden-wing,
+.garden-refraction,
+.garden-pulse{
+  display:none !important;
+}
+.garden-scene{
+  opacity:.9;
+  transform:scale(1.01);
+  transition:transform 1.6s cubic-bezier(.2,.75,.2,1),filter 1.4s ease,opacity 1.2s ease;
+}
+.garden-growth{
+  opacity:.08;
+  transform:translate3d(0,13%,0) scale(1.02);
+  transition:transform 1.8s cubic-bezier(.2,.75,.2,1),opacity 1.35s ease,filter 1.35s ease;
+}
+.garden-petals{
+  opacity:.08;
+  transform:translate3d(0,0,0) scale(1.01);
+  animation:none !important;
+  transition:opacity 1.25s ease,transform 1.6s cubic-bezier(.2,.75,.2,1);
+}
+.garden-atmosphere,
+.garden-foreground{
+  transform:none;
+}
+body[data-garden-section="about"] .garden-scene{transform:scale(1.025)}
+body[data-garden-section="about"] .garden-growth{opacity:.28;transform:translate3d(0,8%,0) scale(1.025)}
+body[data-garden-section="projects"] .garden-scene{transform:scale(1.045);filter:saturate(.92) contrast(1.04) brightness(.9)}
+body[data-garden-section="projects"] .garden-growth{opacity:.48;transform:translate3d(0,4%,0) scale(1.035)}
+body[data-garden-section="projects"] .garden-petals{opacity:.26;transform:translate3d(-1.5%,1%,0) scale(1.025)}
+body[data-garden-section="field-reporting"] .garden-scene{transform:scale(1.065);filter:saturate(.96) contrast(1.04) brightness(.94)}
+body[data-garden-section="field-reporting"] .garden-growth{opacity:.62;transform:translate3d(0,1%,0) scale(1.045)}
+body[data-garden-section="field-reporting"] .garden-petals{opacity:.34;transform:translate3d(-2%,1.5%,0) scale(1.035)}
+body[data-garden-section="skills"] .garden-scene,
+body[data-garden-section="timeline"] .garden-scene{transform:scale(1.08);filter:saturate(1) brightness(.96)}
+body[data-garden-section="skills"] .garden-growth,
+body[data-garden-section="timeline"] .garden-growth{opacity:.76;transform:translate3d(0,0,0) scale(1.055)}
+body[data-garden-section="process"] .garden-scene,
+body[data-garden-section="resume"] .garden-scene{transform:scale(1.095);filter:saturate(1.02) brightness(.98)}
+body[data-garden-section="process"] .garden-growth,
+body[data-garden-section="resume"] .garden-growth{opacity:.86;transform:translate3d(0,-1%,0) scale(1.06)}
+body[data-garden-section="contact"] .garden-scene{transform:scale(1.11);filter:saturate(1.08) brightness(1.02)}
+body[data-garden-section="contact"] .garden-growth{opacity:1;transform:translate3d(0,-2%,0) scale(1.07)}
+body[data-garden-section="contact"] .garden-petals{opacity:.46;transform:translate3d(-2.5%,2%,0) scale(1.05)}
+
+.project-preview *,
+.case-slide *{
+  animation-play-state:paused !important;
+}
+@media(hover:hover) and (pointer:fine){
+  .project-card:hover .project-preview *{
+    animation-play-state:running !important;
+  }
+}
+.experience-surface:hover,
+.project-card:hover{
+  transform:translateY(-3px);
+}
+.experience-surface{
+  transform-style:flat;
+}
+.reveal-pending,
+.reveal-pending.revealed{
+  opacity:1 !important;
+  transform:none !important;
+  transition:none !important;
+}
+.about-card,
+.project-card,
+.process-card,
+.resume-box,
+.contact-box,
+.case-deck,
+.tl,
+.skill-chip,
+.stats{
+  backdrop-filter:blur(10px) saturate(125%);
+  -webkit-backdrop-filter:blur(10px) saturate(125%);
+}
+
+/* The opened experiences remain inside the same garden */
+.modal,
+.case-deck{
+  isolation:isolate;
+  overflow:hidden;
+}
+.modal::before,
+.case-deck::before{
+  content:'';
+  position:absolute;
+  inset:auto -8% -12%;
+  height:44%;
+  z-index:-1;
+  pointer-events:none;
+  background:url("assets/glass-garden/glass-garden-flower-growth.png") center bottom/cover no-repeat;
+  mix-blend-mode:screen;
+  opacity:.28;
+  filter:saturate(.92) brightness(.76);
+}
+.modal::after,
+.case-deck::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 82% 18%,rgba(202,234,243,.14),transparent 28%),
+    radial-gradient(circle at 16% 88%,rgba(242,169,189,.1),transparent 30%);
+}
+.modal-content,
+#modal-content,
+.case-stage,
+.case-controls{
+  position:relative;
+  z-index:1;
+}
+.asset-frame,
+.hub-preview,
+.case-slide > .cs-cover,
+.case-slide > .cs-block{
+  background:
+    linear-gradient(145deg,rgba(213,239,245,.075),rgba(5,13,16,.42)),
+    radial-gradient(circle at 90% 12%,rgba(242,169,189,.08),transparent 28%);
+  border-color:rgba(225,244,248,.18);
+}
+.case-slide{
+  transition:opacity .3s ease,transform .3s ease,visibility 0s linear .3s;
+}
+.case-slide.active{transition-delay:0s}
+@media(min-width:901px){
+  .case-deck.case-architecture{
+    min-height:auto;
+  }
+  .case-deck.case-architecture .case-stage{
+    height:400px;
+  }
+}
+
+@media(max-width:900px){
+  .garden-scene,
+  .garden-growth,
+  .garden-petals{
+    transition-duration:1s;
+  }
+  .about-card,
+  .project-card,
+  .process-card,
+  .resume-box,
+  .contact-box,
+  .case-deck,
+  .tl,
+  .skill-chip,
+  .stats{
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    background-color:rgba(7,16,19,.78);
+  }
+  .experience-surface:hover,
+  .project-card:hover{transform:none}
+}
+
+/* CONTENT-FIRST CLEANUP */
+.hero-butterfly-video{
+  position:absolute;
+  z-index:0;
+  inset:0 auto 0 50%;
+  width:100vw;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  transform:translateX(-50%);
+  opacity:.9;
+  mix-blend-mode:normal;
+  filter:saturate(.92) contrast(1.03) brightness(.82);
+  clip-path:none;
+  pointer-events:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.25) 13%,#000 34%,#000 100%);
+  mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.25) 13%,#000 34%,#000 100%);
+}
+.hero{overflow:visible}
+.hero-copy{z-index:2}
+body[data-garden-section="hero"] .garden-scene{opacity:.08}
+body:not([data-garden-section="hero"]) .hero-butterfly-video{opacity:0}
+.hero-butterfly-video{transition:opacity .65s ease}
+
+.skills-tabs{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  width:min(100%,850px);
+  gap:6px;
+  padding:6px;
+  border-radius:12px;
+  background:rgba(3,10,13,.88);
+  border:1px solid rgba(229,246,249,.2);
+  box-shadow:0 16px 42px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.08);
+}
+.stab{
+  min-height:44px;
+  width:100%;
+  padding:.65rem .8rem;
+  border-radius:8px;
+  border:1px solid transparent;
+  background:rgba(255,255,255,.07);
+  color:rgba(249,252,253,.82);
+  font-size:11px;
+  line-height:1.25;
+  text-align:center;
+}
+.stab.active{
+  background:rgba(240,248,250,.96);
+  border-color:#fff;
+  color:#071014;
+  box-shadow:0 6px 18px rgba(0,0,0,.22);
+}
+.stab:hover:not(.active){
+  background:rgba(255,255,255,.14);
+  border-color:rgba(255,255,255,.16);
+  color:#fff;
+}
+.skills-panel.active{
+  width:min(100%,850px);
+  gap:10px;
+}
+.skill-chip{
+  min-height:46px;
+  background:rgba(5,14,17,.9);
+  border-color:rgba(229,246,249,.18);
+  color:rgba(249,252,253,.9);
+}
+
+.about-card,
+.stat,
+.project-card,
+.skill-chip,
+.tl,
+.process-card,
+.resume-box,
+.contact-box,
+.case-deck{
+  background-color:rgba(5,14,17,.72);
+}
+.about-card:hover,
+.about-card.experience-surface:hover{
+  transform:none !important;
+}
+.about-card p,
+.project-card p,
+.tl-desc,
+.cs-block-body,
+.cs-cover-sub,
+.modal-body{
+  color:rgba(248,251,252,.82);
+}
+.stat::after,
+.about-card::before,
+.skill-chip::after,
+.tl-item::after{
+  opacity:.055;
+}
+.project-card::before{opacity:.12}
+.project-card:hover::before{opacity:.22}
+
+.case-slide .cs-arch-node,
+.case-slide .cs-arch-arrow i{
+  opacity:1 !important;
+  transform:none !important;
+  animation:none !important;
+}
+.cs-arch{
+  background:rgba(3,10,13,.78);
+  border-color:rgba(229,246,249,.2);
+}
+.cs-arch-node{
+  background:rgba(14,28,32,.94) !important;
+  border-color:rgba(229,246,249,.26) !important;
+  color:#fff;
+}
+.cs-arch-arrow{color:rgba(235,248,251,.72)}
+.case-slide .cs-arch{
+  padding:1rem;
+}
+.case-slide .cs-arch-flow{
+  align-items:stretch;
+  gap:.4rem;
+}
+.case-slide .cs-arch-group{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(110px,1fr));
+  gap:.4rem;
+  flex:2.25;
+}
+.case-slide .cs-arch-node{
+  display:grid;
+  place-content:center;
+  min-height:112px;
+  padding:.65rem .45rem;
+}
+
+@media(max-width:900px){
+  .hero-butterfly-video{
+    inset:0 0 auto 0;
+    width:100%;
+    height:62vh;
+    max-height:none;
+    object-fit:cover;
+    object-position:68% center;
+    transform:none;
+    opacity:.7;
+    -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 58%,rgba(0,0,0,.68) 75%,transparent 100%);
+    mask-image:linear-gradient(180deg,#000 0%,#000 58%,rgba(0,0,0,.68) 75%,transparent 100%);
+  }
+  .skills-tabs{
+    display:flex;
+    width:100%;
+    overflow-x:auto;
+    border-radius:10px;
+    scrollbar-width:none;
+  }
+  .skills-tabs::-webkit-scrollbar{display:none}
+  .stab{flex:0 0 132px}
+  .case-slide .cs-arch-group{
+    display:flex;
+    flex-direction:column;
+  }
+}
+
 </style>
 </head>
 <body>
+<div class="garden-world" aria-hidden="true">
+  <div class="garden-layer garden-atmosphere"></div>
+  <div class="garden-layer garden-scene"></div>
+  <div class="garden-layer garden-growth"></div>
+  <div class="garden-layer garden-petals"></div>
+  <div class="garden-layer garden-foreground"></div>
+</div>
 <div class="cursor-light" aria-hidden="true"></div>
-
-<video class="bg-video bg-video-fill" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-  <source src="assets/videos/butterfly-wisps.mp4" type="video/mp4">
-  <source src="videos/butterfly-wisps.mp4" type="video/mp4">
-  <source src="butterfly-wisps.mp4" type="video/mp4">
-</video>
-<video class="bg-video bg-video-main" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-  <source src="assets/videos/side-butterflies.mp4" type="video/mp4">
-  <source src="videos/side-butterflies.mp4" type="video/mp4">
-  <source src="side-butterflies.mp4" type="video/mp4">
-  <source src="assets/videos/butterfly-wisps.mp4" type="video/mp4">
-</video>
-<canvas id="bg"></canvas>
-<div class="orb orb1"></div>
-<div class="orb orb2"></div>
-<div class="orb orb3"></div>
 
 <div class="layer">
 
@@ -3236,6 +4032,9 @@ body.cursor-active .cursor-light{opacity:1}
 
 <!-- HERO -->
 <div class="hero">
+  <video class="hero-butterfly-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+    <source src="assets/videos/glass-garden-hero-loop.mp4" type="video/mp4">
+  </video>
   <div class="hero-copy">
     <div class="hero-glow"></div>
     <div class="badge"><span class="badge-dot"></span>Operations · Systems · Creative Execution</div>
@@ -3760,7 +4559,7 @@ body.cursor-active .cursor-light{opacity:1}
 <!-- TIMELINE -->
 <section id="timeline">
   <div class="sec-label">Experience Overview</div>
-  <div class="sec-title">Experience, connected</div>
+  <div class="sec-title">Where my experience comes together</div>
   <div class="tl">
     <div class="tl-item">
       <div class="tl-dot"></div>
@@ -4157,7 +4956,7 @@ function initCaseStudyDeck() {
   )).join('');
 
   const dots = Array.from(dotsWrap.querySelectorAll('.case-dot'));
-  function setCaseSlide(index) {
+  function setCaseSlide(index, focusDeck = false) {
     const pageY = window.scrollY;
     active = Math.max(0, Math.min(index, slides.length - 1));
     slides.forEach((slide, slideIndex) => {
@@ -4165,19 +4964,25 @@ function initCaseStudyDeck() {
       if (slideIndex === active) slide.scrollTop = 0;
     });
     dots.forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === active));
+    deck.classList.toggle('case-architecture', active === 3);
     count.textContent = `${String(active + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')} · ${titles[active]}`;
     prev.disabled = active === 0;
     next.disabled = active === slides.length - 1;
-    requestAnimationFrame(() => window.scrollTo({ top:pageY, behavior:'auto' }));
-    window.setTimeout(() => window.scrollTo({ top:pageY, behavior:'auto' }), 80);
+    if (focusDeck) {
+      const navHeight = document.querySelector('nav')?.offsetHeight || 0;
+      const stageTop = stage.getBoundingClientRect().top + window.scrollY - navHeight - 14;
+      window.scrollTo({ top:stageTop, behavior:'smooth' });
+    } else {
+      requestAnimationFrame(() => window.scrollTo({ top:pageY, behavior:'auto' }));
+    }
   }
 
-  prev.addEventListener('click', () => setCaseSlide(active - 1));
-  next.addEventListener('click', () => setCaseSlide(active + 1));
-  dots.forEach(dot => dot.addEventListener('click', () => setCaseSlide(Number(dot.dataset.caseDot))));
+  prev.addEventListener('click', () => setCaseSlide(active - 1, true));
+  next.addEventListener('click', () => setCaseSlide(active + 1, true));
+  dots.forEach(dot => dot.addEventListener('click', () => setCaseSlide(Number(dot.dataset.caseDot), true)));
   deck.addEventListener('keydown', (event) => {
-    if (event.key === 'ArrowLeft') setCaseSlide(active - 1);
-    if (event.key === 'ArrowRight') setCaseSlide(active + 1);
+    if (event.key === 'ArrowLeft') setCaseSlide(active - 1, true);
+    if (event.key === 'ArrowRight') setCaseSlide(active + 1, true);
   });
 
   let startX = 0;
@@ -4187,7 +4992,7 @@ function initCaseStudyDeck() {
   deck.addEventListener('touchend', (event) => {
     const endX = event.changedTouches[0]?.clientX || startX;
     const delta = startX - endX;
-    if (Math.abs(delta) > 52) setCaseSlide(active + (delta > 0 ? 1 : -1));
+    if (Math.abs(delta) > 52) setCaseSlide(active + (delta > 0 ? 1 : -1), true);
     startX = 0;
   }, { passive:true });
 
@@ -4195,39 +5000,44 @@ function initCaseStudyDeck() {
 }
 
 function initProjectDiscovery() {
+  const canHover = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
   const cards = document.querySelectorAll('.project-card');
-  cards.forEach(card => {
-    card.addEventListener('pointermove', event => {
-      const bounds = card.getBoundingClientRect();
-      const x = event.clientX - bounds.left;
-      const y = event.clientY - bounds.top;
-      card.style.setProperty('--mx', `${x}px`);
-      card.style.setProperty('--my', `${y}px`);
-      card.style.setProperty('--tilt-x', `${((x / bounds.width) - .5) * 2.2}deg`);
-      card.style.setProperty('--tilt-y', `${((y / bounds.height) - .5) * -2.2}deg`);
+  if (canHover) {
+    cards.forEach(card => {
+      card.addEventListener('pointermove', event => {
+        const bounds = card.getBoundingClientRect();
+        const x = event.clientX - bounds.left;
+        const y = event.clientY - bounds.top;
+        card.style.setProperty('--mx', `${x}px`);
+        card.style.setProperty('--my', `${y}px`);
+        card.style.setProperty('--tilt-x', `${((x / bounds.width) - .5) * 2.2}deg`);
+        card.style.setProperty('--tilt-y', `${((y / bounds.height) - .5) * -2.2}deg`);
+      });
+      card.addEventListener('pointerleave', () => {
+        card.style.setProperty('--tilt-x', '0deg');
+        card.style.setProperty('--tilt-y', '0deg');
+      });
     });
-    card.addEventListener('pointerleave', () => {
-      card.style.setProperty('--tilt-x', '0deg');
-      card.style.setProperty('--tilt-y', '0deg');
-    });
-  });
+  }
 
   const surfaces = document.querySelectorAll('.hero-copy, .stat, .about-card, .skill-chip, .tl-item, .process-card, .resume-box, .contact-box, .case-deck');
   surfaces.forEach(surface => {
     surface.classList.add('experience-surface');
-    surface.addEventListener('pointermove', event => {
-      const bounds = surface.getBoundingClientRect();
-      const x = event.clientX - bounds.left;
-      const y = event.clientY - bounds.top;
-      surface.style.setProperty('--mx', `${x}px`);
-      surface.style.setProperty('--my', `${y}px`);
-      surface.style.setProperty('--surface-tilt-x', `${((x / bounds.width) - .5) * 1.15}deg`);
-      surface.style.setProperty('--surface-tilt-y', `${((y / bounds.height) - .5) * -1.15}deg`);
-    });
-    surface.addEventListener('pointerleave', () => {
-      surface.style.setProperty('--surface-tilt-x', '0deg');
-      surface.style.setProperty('--surface-tilt-y', '0deg');
-    });
+    if (canHover) {
+      surface.addEventListener('pointermove', event => {
+        const bounds = surface.getBoundingClientRect();
+        const x = event.clientX - bounds.left;
+        const y = event.clientY - bounds.top;
+        surface.style.setProperty('--mx', `${x}px`);
+        surface.style.setProperty('--my', `${y}px`);
+        surface.style.setProperty('--surface-tilt-x', `${((x / bounds.width) - .5) * 1.15}deg`);
+        surface.style.setProperty('--surface-tilt-y', `${((y / bounds.height) - .5) * -1.15}deg`);
+      });
+      surface.addEventListener('pointerleave', () => {
+        surface.style.setProperty('--surface-tilt-x', '0deg');
+        surface.style.setProperty('--surface-tilt-y', '0deg');
+      });
+    }
   });
 
   const previewVideos = document.querySelectorAll('.project-preview-video');
@@ -4273,21 +5083,53 @@ function initAtmosphereInteraction() {
   document.documentElement.addEventListener('mouseleave', () => document.body.classList.remove('cursor-active'));
 }
 
+function initLivingGlassGarden() {
+  const body = document.body;
+  const heroVideo = document.querySelector('.hero-butterfly-video');
+  const visibility = new Map();
+  const targets = [document.querySelector('.hero'), ...document.querySelectorAll('section[id]')].filter(Boolean);
+  body.dataset.gardenSection = 'hero';
+
+  const sectionObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => visibility.set(entry.target, entry.intersectionRatio));
+    const active = [...visibility.entries()]
+      .filter(([, ratio]) => ratio > 0)
+      .sort((a, b) => b[1] - a[1])[0]?.[0];
+    if (active) {
+      const sectionName = active.classList.contains('hero') ? 'hero' : active.id;
+      body.dataset.gardenSection = sectionName;
+      if (heroVideo) {
+        if (sectionName === 'hero') heroVideo.play().catch(() => {});
+        else heroVideo.pause();
+      }
+    }
+  }, { rootMargin:'-22% 0px -46% 0px', threshold:[0,.08,.2,.38,.6] });
+  targets.forEach(target => sectionObserver.observe(target));
+
+  const interactiveControls = document.querySelectorAll('button, .res-btn, .clink, .modal-link, .project-live-link, .case-btn');
+  interactiveControls.forEach(control => {
+    control.addEventListener('pointerdown', event => {
+      const bounds = control.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.className = 'glass-ripple';
+      ripple.style.left = `${event.clientX - bounds.left}px`;
+      ripple.style.top = `${event.clientY - bounds.top}px`;
+      control.appendChild(ripple);
+      ripple.addEventListener('animationend', () => ripple.remove(), { once:true });
+      body.classList.remove('garden-click');
+      void body.offsetWidth;
+      body.classList.add('garden-click');
+      window.setTimeout(() => body.classList.remove('garden-click'), 900);
+    });
+  });
+}
+
 
 window.addEventListener('load', () => {
   document.body.classList.add('ready');
   initCaseStudyDeck();
   initProjectDiscovery();
-  initAtmosphereInteraction();
-
-  document.querySelectorAll('.bg-video').forEach(video => {
-    video.muted = true;
-    video.play().catch(() => {});
-    video.addEventListener('canplay', () => video.play().catch(() => {}), { once:false });
-    video.addEventListener('error', () => {
-      if (video.classList.contains('bg-video-main')) document.body.classList.add('bg-side-missing');
-    });
-  });
+  initLivingGlassGarden();
 
   const revealTargets = document.querySelectorAll('section, .stats, footer');
   const reveal = new IntersectionObserver((entries) => {
@@ -4310,68 +5152,6 @@ window.addEventListener('load', () => {
 
 });
 
-/* ---------- ANIMATED BACKGROUND ---------- */
-const canvas = document.getElementById('bg');
-const ctx = canvas.getContext('2d');
-let W, H, particles = [];
-
-function resize() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener('resize', resize);
-
-const colors = ['rgba(255,255,255,','rgba(185,212,232,','rgba(217,225,234,','rgba(141,152,163,'];
-for (let i = 0; i < 88; i++) {
-  particles.push({
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
-    vx: (Math.random() - .5) * 0.2,
-    vy: (Math.random() - .5) * 0.2,
-    r: Math.random() * 1.7 + 0.35,
-    o: Math.random() * 0.34 + 0.08,
-    c: colors[Math.floor(Math.random() * colors.length)],
-    tw: Math.random() * Math.PI * 2,
-    ts: 0.008 + Math.random() * 0.018
-  });
-}
-
-function draw() {
-  ctx.clearRect(0, 0, W, H);
-  particles.forEach(p => {
-    p.x += p.vx; p.y += p.vy; p.tw += p.ts;
-    if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
-    if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
-    const o = p.o * (0.65 + 0.35 * Math.sin(p.tw));
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = p.c + o + ')';
-    ctx.fill();
-  });
-  for (let i = 0; i < particles.length; i++) {
-    const a = particles[i];
-    for (let j = i + 1; j < Math.min(i + 6, particles.length); j++) {
-      const b = particles[j];
-      const dx = a.x - b.x, dy = a.y - b.y;
-      const d = Math.sqrt(dx * dx + dy * dy);
-      if (d < 155) {
-        const alpha = 0.12 * (1 - d / 155);
-        const g = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
-        g.addColorStop(0, a.c + alpha + ')');
-        g.addColorStop(1, b.c + (alpha * .6) + ')');
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.strokeStyle = g;
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-      }
-    }
-  }
-  requestAnimationFrame(draw);
-}
-draw();
 </script>
 </body>
 </html>
