@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Golden Grace Bernal — Operations & Systems</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23050b0e'/%3E%3Cpath d='M32 34c-8-18-25-18-24-4 1 12 15 13 24 4Zm0 0c8-18 25-18 24-4-1 12-15 13-24 4Z' fill='%23d7edf4' fill-opacity='.85'/%3E%3Ccircle cx='32' cy='34' r='3' fill='%23f3b2c3'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
@@ -203,7 +204,7 @@ footer{text-align:center;padding:2.5rem;font-size:11px;color:rgba(226,232,240,.1
 body{
   background:
     linear-gradient(90deg,rgba(251,248,242,.98) 0%,rgba(251,248,242,.9) 43%,rgba(251,248,242,.55) 68%,rgba(251,248,242,.86) 100%),
-    url("golden-grace-portrait.png") right 6vw top 2rem / min(48vw,620px) auto no-repeat fixed,
+    linear-gradient(120deg,rgba(255,252,246,.08),transparent 55%),
     var(--paper);
   color:var(--text);
 }
@@ -228,7 +229,7 @@ body::after{
   height:112vh;
   z-index:0;
   pointer-events:none;
-  background:url("golden-grace-portrait.png") center bottom / contain no-repeat;
+  background:linear-gradient(135deg,rgba(255,252,246,.08),rgba(181,106,95,.06));
   opacity:.12;
   filter:saturate(.9) contrast(1.08);
   transform-origin:center;
@@ -468,7 +469,7 @@ footer{color:var(--text-dim);border-top:1px solid var(--line)}
   body{
     background:
       linear-gradient(180deg,rgba(251,248,242,.84),rgba(251,248,242,.98) 42%),
-      url("golden-grace-portrait.png") center top / 86vw auto no-repeat fixed,
+      linear-gradient(135deg,rgba(255,252,246,.08),rgba(181,106,95,.06)),
       var(--paper);
   }
   body::after{width:92vw;right:-20vw;opacity:.08}
@@ -524,7 +525,7 @@ footer{color:var(--text-dim);border-top:1px solid var(--line)}
 body{
   background:
     linear-gradient(90deg,rgba(5,7,10,.96) 0%,rgba(5,7,10,.82) 42%,rgba(5,7,10,.36) 72%,rgba(5,7,10,.72) 100%),
-    url("silver-butterfly-bg.jpg") right center / min(48vw,680px) auto no-repeat fixed,
+    radial-gradient(circle at 72% 40%,rgba(217,225,234,.16),transparent 36%),
     #05070a;
   color:var(--text);
 }
@@ -537,7 +538,7 @@ body::before{
   mix-blend-mode:screen;
 }
 body::after{
-  background:url("silver-butterfly-bg.jpg") center / cover no-repeat;
+  background:radial-gradient(circle at 58% 44%,rgba(217,225,234,.16),transparent 48%);
   width:min(62vw,780px);
   right:-7vw;
   opacity:.34;
@@ -599,7 +600,7 @@ nav{
   border-color:rgba(255,255,255,.2);
   background:
     linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.025)),
-    url("silver-butterfly-bg.jpg") center / cover no-repeat;
+    radial-gradient(circle at 58% 44%,rgba(217,225,234,.16),transparent 48%);
   box-shadow:0 36px 110px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.2);
   animation:liquidPanel 13s ease-in-out infinite alternate;
 }
@@ -730,7 +731,7 @@ footer{border-top-color:rgba(235,242,250,.1)}
   body{
     background:
       linear-gradient(180deg,rgba(5,7,10,.5),rgba(5,7,10,.98) 44%),
-      url("silver-butterfly-bg.jpg") center top / 100vw auto no-repeat fixed,
+      radial-gradient(circle at 50% 22%,rgba(217,225,234,.16),transparent 38%),
       #05070a;
   }
   body::after{width:110vw;right:-35vw;opacity:.18}
@@ -4002,6 +4003,107 @@ body:not([data-garden-section="hero"]) .hero-butterfly-video{opacity:0}
   }
 }
 
+/* ALIGNMENT QA PASS: keep the glass style, remove uneven card/button offsets */
+#about .about-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  align-items:stretch;
+  gap:clamp(1rem,2vw,1.25rem);
+}
+#about .about-card,
+#about .about-card:nth-child(even),
+#about .about-card:hover{
+  min-height:100%;
+  transform:none !important;
+}
+#about .about-card{
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  padding:clamp(1.35rem,2vw,1.75rem);
+}
+#about .about-icon{
+  min-height:28px;
+  margin-bottom:.9rem;
+}
+#about .about-card h3{
+  min-height:2.6em;
+  display:flex;
+  align-items:flex-start;
+  margin-bottom:.65rem;
+}
+#about .about-card p{
+  margin-top:auto;
+}
+
+#skills .skills-tabs{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  width:min(100%,860px);
+  gap:8px;
+  align-items:stretch;
+  overflow:visible;
+}
+#skills .stab{
+  width:100%;
+  min-width:0;
+  min-height:46px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  white-space:normal;
+  text-wrap:balance;
+}
+#skills .skills-panel.active{
+  width:min(100%,860px);
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(168px,1fr));
+  align-items:stretch;
+  gap:10px;
+}
+#skills .skill-chip,
+#skills .skill-chip:nth-child(3n + 2),
+#skills .skill-chip:nth-child(4n),
+#skills .skill-chip:hover{
+  transform:none !important;
+}
+#skills .skill-chip{
+  min-height:48px;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  padding:.82rem 1rem;
+  line-height:1.25;
+}
+
+@media(max-width:900px){
+  #about .about-grid{
+    grid-template-columns:1fr;
+  }
+  #about .about-card h3{
+    min-height:0;
+  }
+  #skills .skills-tabs{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    overflow:visible;
+  }
+  #skills .stab{
+    flex:auto;
+    min-height:44px;
+  }
+  #skills .skills-panel.active{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media(max-width:520px){
+  #skills .skills-tabs,
+  #skills .skills-panel.active{
+    grid-template-columns:1fr;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -4611,7 +4713,7 @@ body:not([data-garden-section="hero"]) .hero-butterfly-video{opacity:0}
     </div>
     <div class="process-media">
       <div class="embed-shell video-ready">
-        <iframe class="process-embed" src="https://drive.google.com/file/d/1azqq6Nci7w06QoJdHsn29Ibn6zpL968m/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        <iframe class="process-embed" src="https://drive.google.com/file/d/1azqq6Nci7w06QoJdHsn29Ibn6zpL968m/preview" loading="lazy" allow="autoplay; fullscreen"></iframe>
       </div>
       <div class="modal-actions">
         <a class="modal-link" href="https://drive.google.com/file/d/1azqq6Nci7w06QoJdHsn29Ibn6zpL968m/view?usp=sharing" target="_blank" rel="noopener"><i class="ti ti-external-link"></i>Open workflow video</a>
@@ -4628,7 +4730,7 @@ body:not([data-garden-section="hero"]) .hero-butterfly-video{opacity:0}
   <div class="sec-title">Resume &amp; work history</div>
   <div class="resume-box">
     <div class="resume-preview live-resume">
-      <iframe src="https://www.canva.com/design/DAEmjyt7oDY/g8yJcmf6WhSxJV8upSqhNw/view?embed" loading="lazy" allowfullscreen allow="fullscreen" onload="this.parentElement.classList.add('loaded')"></iframe>
+      <iframe src="https://www.canva.com/design/DAEmjyt7oDY/g8yJcmf6WhSxJV8upSqhNw/view?embed" loading="lazy" allow="fullscreen" onload="this.parentElement.classList.add('loaded')"></iframe>
       <div class="resume-fallback">
         <i class="ti ti-file-text"></i>
         <strong>Golden Grace Bernal — Resume</strong>
@@ -4863,7 +4965,7 @@ function openModal(id) {
       <div class="asset-note">If the walkthrough does not start, press play in the frame or open the live view below.</div>
     ` : hasEmbed ? `
       <div class="asset-frame">
-        <iframe src="${p.embedUrl}" loading="lazy" allowfullscreen allow="fullscreen"></iframe>
+        <iframe src="${p.embedUrl}" loading="lazy" allow="fullscreen"></iframe>
       </div>
     ` : `
       <div class="media-placeholder">
